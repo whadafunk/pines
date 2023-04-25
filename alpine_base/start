@@ -1,0 +1,8 @@
+#!/bin/bash
+
+docker container run -it \
+	--detach \
+	--rm \
+	--name alpine_base \
+	--hostname alpine_base \
+	routerology/alpine_base:latest

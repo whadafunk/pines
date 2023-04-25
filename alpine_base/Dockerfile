@@ -4,6 +4,7 @@ MAINTAINER gri.daniel@gmail.com
 LABEL my_name="Daniel Grigore"
 LABEL my_email="gri.daniel@gmail.com"
 
+COPY Readme.md /usr/src/app/README.md
 
 # Setting up a nicer prompt
 ENV PS1='\n\e[32m\e[1m\u@\h\e[0m \e[94m\w \e[32m\e[1m#\e[0m\e[0m\e[39m\e[49m '
