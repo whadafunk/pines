@@ -5,4 +5,5 @@ docker container run -it \
 	--rm \
 	--name alpine_base \
 	--hostname alpine_base \
+	--mount type=bind,source=$(pwd)/log/admin,destination=/var/log/admin \
 	routerology/alpine_base:latest

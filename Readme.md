@@ -12,3 +12,6 @@
 - alpine_nginx
 - alpine_php_httpd
 - alpine_php_nginx
+- alpine_jumpbox
+- alpine_gcc
+- alpine_hackbox
