@@ -30,7 +30,7 @@ COPY profile /etc/profile
 
 # It is a good practice to not use the container as root
 RUN 	adduser --disabled-password -g admin -G wheel -h /home/admin -s /bin/sh admin && \
-	echo "admin:pass123" | chpasswd \
+	echo "admin:pass123" | chpasswd && \
 	addgroup admin wheel
 
 USER admin
