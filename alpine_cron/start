@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Start script for the alpine_cron container
+
+docker container run \
+	--interactive \
+	--tty \
+	--init \
+	--rm \
+	--detach \
+	--name cronpine \
+	--hostname cronpine \
+	--user root \
+	cronpine:latest

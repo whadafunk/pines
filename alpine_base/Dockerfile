@@ -13,10 +13,23 @@ ENV PS1='\n\e[32m\e[1m\u@\h\e[0m \e[94m\w \e[32m\e[1m$\e[0m\e[0m\e[39m\e[49m '
 COPY log/admin/journal /var/log/admin/journal
 COPY log/admin/summary /var/log/admin/summary
 
+# Set the timezone
+ENV TZ="Europe/Bucharest"
+
+# An alternative to setting timezone with environment variables would be the following
+# RUN echo "Europe/Bucharest" > /etc/timzone
+
 # Install a couple of basic tools
 RUN 	apk update && \
-	apk add vim shadow ca-certificates wget bash sudo && \
-	rm -rf /var/cache/apk/*
+	apk add \
+		vim\
+		procps-ng \
+		shadow\
+		ca-certificates\
+		wget\
+		bash\
+		sudo\
+		&& rm -rf /var/cache/apk/*
 
 # Copy an edited sudoers file, with uncommented wheel group line
 COPY sudoers /etc/sudoers

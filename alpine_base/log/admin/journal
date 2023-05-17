@@ -13,12 +13,12 @@ NOTES:
 
 DATE:           11/10/2022
 DESCRIPTION:    migrated containers from old environment (npm, intranet, ip, myadmin)
-WHO:            daniel.grigore@bit-soft.ro
+WHO:            daniel.grigore@packets.lab
 NOTES:          lost configuration volume of portainer; needs a bit of reconfiguration
 
 DATE:           11/10/2022
 DESCRIPTION:    installed docker
-WHO:            daniel.grigore@bit-soft.ro
+WHO:            daniel.grigore@packets.lab
 NOTES:          went well
 
 DATE:           11/10/2022
