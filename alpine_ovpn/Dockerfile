@@ -23,6 +23,7 @@ ENV TZ="Europe/Bucharest"
 RUN 	apk update && \
 	apk add \
 		sudo \
+		easy-rsa \
 		ca-certificates \
 		openvpn \
 		&& rm -rf /var/cache/apk/*
@@ -31,6 +32,12 @@ RUN 	apk update && \
 # If you have custom ca certificates, place them under ca_certs directory
 COPY ca_certs/*.crt /usr/local/share/ca-certificates
 RUN update-ca-certificates
+
+# Copy the tls material
+COPY tls/ /etc/openvpn/tls
+
+# Copy the configuration files
+COPY config_samples/ /etc/openvpn/
 
 
 # It is a good practice to not use the container as root
@@ -41,5 +48,6 @@ RUN 	adduser --disabled-password -g admin -G wheel -h /home/admin -s /bin/sh adm
 USER admin
 
 # This is the default from the base image, but I have it here just for clarity
+# CMD ["/usr/sbin/openvpn","--config /etc/openvpn/server_tun.conf"]
 CMD ["/bin/sh"]
 

@@ -7,5 +7,7 @@ docker container run -it \
 	--hostname ovpn \
 	--user root \
 	--mount type=bind,source=$(pwd)/log/admin,destination=/var/log/admin \
-	--mount type=bind,source=$(pwd)/tls,destination=/etc/openvpn/tls \
 	routerology/ovpn:latest
+	
+
+#--mount type=bind,source=$(pwd)/tls,destination=/etc/openvpn/tls \

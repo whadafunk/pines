@@ -1,0 +1,87 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            5e:f4:c1:6d:8c:84:32:07:82:27:65:93:d8:b7:4b:4c
+        Signature Algorithm: sha256WithRSAEncryption
+        Issuer: CN=Routerology-CA
+        Validity
+            Not Before: May 21 07:11:09 2023 GMT
+            Not After : Aug 23 07:11:09 2025 GMT
+        Subject: CN=rtg-vpn
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                RSA Public-Key: (2048 bit)
+                Modulus:
+                    00:c5:7e:20:51:9d:72:cb:98:17:15:a7:d8:76:02:
+                    c9:8c:51:d2:08:fb:e9:7d:4e:6b:c5:3d:17:23:38:
+                    e0:e0:29:dc:df:2f:3e:10:be:cf:27:45:49:a4:1d:
+                    47:ef:b6:c6:e8:8b:ae:8d:7f:48:7e:e4:49:37:03:
+                    fb:2a:10:39:37:3f:f5:84:36:42:bf:95:94:dd:c6:
+                    71:e8:8d:af:94:fe:31:20:9f:f6:b5:94:f7:ee:26:
+                    01:0b:bc:30:e1:77:1f:c4:09:2b:2a:17:54:03:8a:
+                    3a:bf:91:47:1d:da:3e:31:7a:2e:16:88:fc:a9:7a:
+                    a3:9d:15:87:c2:df:00:ac:03:d4:8f:ac:68:bf:5b:
+                    df:68:72:f4:3a:94:fb:00:41:63:c8:46:5d:b3:03:
+                    08:2e:c2:22:95:86:ae:c1:8d:90:0d:a7:70:c7:ee:
+                    87:c9:2a:29:f0:60:c1:2e:54:36:f8:ff:9a:80:35:
+                    ab:d8:cf:35:21:e8:56:c3:d2:2b:87:53:2f:ea:ba:
+                    94:92:1a:b3:42:2d:54:cb:a9:37:01:73:be:e8:ab:
+                    3f:0d:d6:23:fd:fd:6f:fd:fa:80:82:20:72:44:79:
+                    14:1c:f0:72:a4:53:87:7f:56:4b:3b:64:cb:27:f0:
+                    f0:e9:87:5a:36:95:3a:27:f0:40:d6:c2:49:e4:58:
+                    9f:bf
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            X509v3 Subject Key Identifier: 
+                74:CB:C8:4F:82:F3:D5:84:12:F7:B8:07:C6:BA:16:16:D3:14:48:19
+            X509v3 Authority Key Identifier: 
+                keyid:A6:32:BA:CD:97:BC:9E:EA:A6:48:C5:77:32:33:B8:58:AB:EF:71:82
+                DirName:/CN=Routerology-CA
+                serial:7D:BC:4F:DC:F9:D4:1A:76:6A:DB:8F:0E:BE:DE:58:19:1D:26:52:85
+
+            X509v3 Extended Key Usage: 
+                TLS Web Server Authentication
+            X509v3 Key Usage: 
+                Digital Signature, Key Encipherment
+            X509v3 Subject Alternative Name: 
+                DNS:rtg-vpn
+    Signature Algorithm: sha256WithRSAEncryption
+         18:3b:83:e4:07:f9:2f:21:9e:48:43:d9:13:a0:89:17:9e:0a:
+         96:be:ed:0f:b1:d7:de:50:cf:a8:ff:87:82:73:9a:94:4b:a1:
+         87:b5:47:8a:dc:65:a0:31:0a:96:1a:fb:9b:9b:bd:ee:2a:5a:
+         1f:42:2f:79:7b:75:08:5e:48:c0:bc:c1:50:b2:14:ca:c6:47:
+         d9:52:14:59:1c:0a:a5:63:f2:27:a0:83:21:34:a9:ab:18:d5:
+         a3:f3:ba:4b:64:59:9e:bb:2d:fa:05:6d:1a:b9:cc:61:a7:cc:
+         85:9d:23:52:49:b2:fc:44:c9:4a:f0:30:1f:67:71:d6:07:bf:
+         a1:01:ee:f2:f3:15:c1:9e:c3:8c:36:74:b9:69:49:a4:5f:58:
+         c9:2b:18:5c:5c:40:d4:e9:e8:dc:a0:4a:1a:a2:94:3f:a2:82:
+         60:04:f1:0d:1c:29:8d:d4:ef:6c:1d:81:04:b4:8d:67:40:72:
+         d9:0f:55:c3:87:83:95:55:90:4e:66:a3:4a:b6:5a:1a:c0:1c:
+         ff:ff:85:f3:00:b9:3c:01:9c:b6:1a:15:6a:58:f9:f9:4c:d6:
+         25:97:03:0c:f6:87:32:99:20:8b:69:6b:2b:06:1c:3d:e6:b9:
+         1d:f8:e0:96:57:44:36:77:6d:02:08:a1:99:08:08:07:e9:8d:
+         cd:5e:b8:16
+-----BEGIN CERTIFICATE-----
+MIIDbzCCAlegAwIBAgIQXvTBbYyEMgeCJ2WT2LdLTDANBgkqhkiG9w0BAQsFADAZ
+MRcwFQYDVQQDDA5Sb3V0ZXJvbG9neS1DQTAeFw0yMzA1MjEwNzExMDlaFw0yNTA4
+MjMwNzExMDlaMBIxEDAOBgNVBAMMB3J0Zy12cG4wggEiMA0GCSqGSIb3DQEBAQUA
+A4IBDwAwggEKAoIBAQDFfiBRnXLLmBcVp9h2AsmMUdII++l9TmvFPRcjOODgKdzf
+Lz4Qvs8nRUmkHUfvtsboi66Nf0h+5Ek3A/sqEDk3P/WENkK/lZTdxnHoja+U/jEg
+n/a1lPfuJgELvDDhdx/ECSsqF1QDijq/kUcd2j4xei4WiPypeqOdFYfC3wCsA9SP
+rGi/W99ocvQ6lPsAQWPIRl2zAwguwiKVhq7BjZANp3DH7ofJKinwYMEuVDb4/5qA
+NavYzzUh6FbD0iuHUy/qupSSGrNCLVTLqTcBc77oqz8N1iP9/W/9+oCCIHJEeRQc
+8HKkU4d/Vks7ZMsn8PDph1o2lTon8EDWwknkWJ+/AgMBAAGjgbkwgbYwCQYDVR0T
+BAIwADAdBgNVHQ4EFgQUdMvIT4Lz1YQS97gHxroWFtMUSBkwVAYDVR0jBE0wS4AU
+pjK6zZe8nuqmSMV3MjO4WKvvcYKhHaQbMBkxFzAVBgNVBAMMDlJvdXRlcm9sb2d5
+LUNBghR9vE/c+dQadmrbjw6+3lgZHSZShTATBgNVHSUEDDAKBggrBgEFBQcDATAL
+BgNVHQ8EBAMCBaAwEgYDVR0RBAswCYIHcnRnLXZwbjANBgkqhkiG9w0BAQsFAAOC
+AQEAGDuD5Af5LyGeSEPZE6CJF54Klr7tD7HX3lDPqP+HgnOalEuhh7VHitxloDEK
+lhr7m5u97ipaH0IveXt1CF5IwLzBULIUysZH2VIUWRwKpWPyJ6CDITSpqxjVo/O6
+S2RZnrst+gVtGrnMYafMhZ0jUkmy/ETJSvAwH2dx1ge/oQHu8vMVwZ7DjDZ0uWlJ
+pF9YySsYXFxA1Ono3KBKGqKUP6KCYATxDRwpjdTvbB2BBLSNZ0By2Q9Vw4eDlVWQ
+TmajSrZaGsAc//+F8wC5PAGcthoValj5+UzWJZcDDPaHMpkgi2lrKwYcPea5Hfjg
+lldENndtAgihmQgIB+mNzV64Fg==
+-----END CERTIFICATE-----
