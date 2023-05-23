@@ -40,7 +40,7 @@
 - **--secret {file [direction]}** - The direction parameter should always be complementary on either side of the connection, i.e. one side should use "0" and the other should use "1", or both sides should omit it altogether.
 - **--auth {alg}** - alg is one of: MD5, SHA1, RSA-SHA1, DSA-SHA1, RSA-SHA256, SHA256, SHA384, SHA512
 - **--cipher {alg}** - the default is BF-CBC, but is legacy. AES-128-CBC, AES-128-CFB, AES-256-GCM, openvpn --show-ciphers 
-- **--ncp-ciphers {cipher_list}** - restrict the automatically negotiated ciphers to the specified list
+- **--ncp-ciphers {cipher_list}** - restrict the automatically negotiated ciphers to the specified list; "AES-128-CBC:AES-256-GCM"
 - **--ifconfig {l rn}** - l is the IP address of the local VPN endpoint. If topology is subnet then rn configures the mask, otherways if topology is p2p or net30, rn represents the peer IP address
 - **--ifconfig-pool {start_IP end_IP [netmask]}** -  Set aside a pool of subnets to be dynamically allocated to connecting clients.
 - **--ifconfig-pool-persist {file [seconds]}** - Persist/unpersist ifconfig-pool data to file, at seconds intervals (default=600)

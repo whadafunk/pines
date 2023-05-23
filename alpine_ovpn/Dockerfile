@@ -33,6 +33,9 @@ RUN 	apk update && \
 COPY ca_certs/*.crt /usr/local/share/ca-certificates
 RUN update-ca-certificates
 
+RUN echo "tun" >> /etc/modules-load.d/tun.conf
+RUN echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.d/ipv4.conf
+
 # Copy the tls material
 COPY tls/ /etc/openvpn/tls
 
@@ -45,9 +48,11 @@ RUN 	adduser --disabled-password -g admin -G wheel -h /home/admin -s /bin/sh adm
 	echo "admin:pass123" | chpasswd && \
 	addgroup admin wheel
 
-USER admin
+#USER admin
+
+WORKDIR /etc/openvpn
 
 # This is the default from the base image, but I have it here just for clarity
 # CMD ["/usr/sbin/openvpn","--config /etc/openvpn/server_tun.conf"]
-CMD ["/bin/sh"]
+CMD ["/usr/sbin/openvpn","--config ./server_tun.conf"]
 

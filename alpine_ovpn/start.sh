@@ -6,8 +6,10 @@ docker container run -it \
 	--name ovpn \
 	--hostname ovpn \
 	--user root \
+	--cap-add=NET_ADMIN \
 	--mount type=bind,source=$(pwd)/log/admin,destination=/var/log/admin \
-	routerology/ovpn:latest
+	--mount type=bind,source=/lib/modules,destination=/lib/modules \
+	routerology/ovpn:latest /bin/sh
 	
 
 #--mount type=bind,source=$(pwd)/tls,destination=/etc/openvpn/tls \
