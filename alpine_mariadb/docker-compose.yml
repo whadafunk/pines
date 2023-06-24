@@ -1,0 +1,9 @@
+#version: '3'
+services:
+  db_maria:
+    image: mariadb:latest
+    environment:
+      - "MYSQL_ROOT_PASSWORD=root"
+      - "MYSQL_USER=testuser"
+      - "MYSQL_PASSWORD=admin123"
+      - "MYSQL_DATABASE=backend"

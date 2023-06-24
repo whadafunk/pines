@@ -1,4 +1,5 @@
 #!/bin/bash
+# We need NET_ADMIN in for the tun/tap interface creation inside the container
 
 docker container run -it \
 	--detach \

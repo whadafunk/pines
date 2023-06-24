@@ -18,6 +18,9 @@ ENV TZ="Europe/Bucharest"
 
 # An alternative to setting timezone with environment variables would be the following
 # RUN echo "Europe/Bucharest" > /etc/timzone
+# Although after writing /etc/timezone, there might be needed to run tzdata to create
+# the symbolic link /etc/localtime
+# Maybe a third alternative would be to mount both /etc/timezone and /etc/localtime from local host
 
 # Install a couple of basic tools
 RUN 	apk update && \
@@ -41,7 +44,8 @@ RUN update-ca-certificates
 # You might want to have some special profile settings
 COPY profile /etc/profile
 
-# It is a good practice to not use the container as root
+# It is a good practice to not run the container as root
+# We create the special user admin which is also member of sudo wheel group
 RUN 	adduser --disabled-password -g admin -G wheel -h /home/admin -s /bin/sh admin && \
 	echo "admin:pass123" | chpasswd && \
 	addgroup admin wheel
