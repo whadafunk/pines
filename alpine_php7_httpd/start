@@ -1,0 +1,16 @@
+#!/bin/bash
+
+docker container run \
+	--name phpine \
+	--hostname phpine \
+	--detach \
+	--rm \
+	--mount type=bind,source=$(pwd)/www,destination=/var/www/localhost/htdocs/ \
+	--mount type=bind,source=$(pwd)/log,destination=/var/www/logs/ \
+	--mount type=bind,source=$(pwd)/httpd_conf/httpd.conf,destination=/etc/apache2/httpd.conf \
+	--interactive \
+	--tty \
+	--publish 81:80 \
+	routerology/phpine:7.4
+
+

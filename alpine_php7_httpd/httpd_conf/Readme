@@ -1,0 +1,25 @@
+In Alpine linux the configuration files for Apache Httpd can be found under /etc/apache2
+
+
+/etc/apache2
+
+	-/etc/apache2/conf.d/
+		-info.conf -> ServerStatus and ServerInfo sections (can be skiped at include)
+		-mpm.conf
+		-php81-module.conf
+		-userdir.conf
+	-httpd.conf -> main configuration file
+
+		ServerRoot /var/www
+		Listen 80
+		LoadModule
+		User/Group
+		ServerAdmin
+		ServerSignature
+		DocumentRoot
+			Options
+			AllowOverride
+		ErrorLog logs/error.log
+		CustomLog logs/access.log
+
+* The path for the logs is relative to the ServerRoot which is by default /var/www

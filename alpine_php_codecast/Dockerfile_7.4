@@ -1,0 +1,74 @@
+FROM alpine:3.11
+
+ADD https://php.hernandev.com/key/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
+
+RUN apk --update-cache add ca-certificates && \
+    echo "https://php.hernandev.com/v3.11/php-7.4" >> /etc/apk/repositories
+
+# install php and some extensions
+RUN apk add --update-cache \
+		apache2 \
+		apache2-utils \
+		php \
+		php-bz2 \
+		php-json \
+		php-mysql \
+		php-sodium \
+		php-bcmath \
+		php-bz2 \
+		php-calendar \
+		php-curl \
+		php-dba \
+		php-enchant \
+		php-exif \
+		php-gd \
+		php-gmp \
+		php-imap \
+		php-ldap \
+		php-mbstring \
+		php-mysqli \
+		php-openssl \
+		php-pdo \
+		php-pdo_mysql \
+		php-pdo_pgsql \
+		php-pdo_sqlite\
+		php-pgsql \
+		php-posix \
+		php-pspell \
+		php-session \
+		php-shmop \
+		php-snmp \
+		php-tidy \
+		php-xml \
+		php-xmlreader \
+		php-xsl \
+		php-zip \
+	&& rm -rf /var/lib/apt/lists/*
+
+# Add the following extra tools only if you need them
+
+# RUN apk add --update-cache \
+#		net-tools \
+#		vim \
+#		tcpdump \
+#		ca-certificates \
+#		iproute2 \
+#		wget \
+#		apache2-ssl \
+#	&& rm -rf /var/lib/apt/lists/*
+
+# If we are using SSL, then we need to add our ca's to the trusted ssl chain; uncomment the next 2 lines
+# COPY ssl/*.crt /usr/local/share/ca-certificates
+# RUN update-ca-certificates
+
+# Set the correct timezone
+
+ENV TZ="Europe/Bucharest"
+
+# COPY www /var/www/localhost/htdocs
+# COPY php_ini/php.ini $PHP_INI_DIR/php.ini
+# COPY httpd_cond/httpd.conf /etc/apache2/httpd.conf
+		
+
+EXPOSE 80/tcp
+ENTRYPOINT ["httpd","-DFOREGROUND"]

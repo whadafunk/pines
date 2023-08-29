@@ -1,0 +1,4 @@
+[Mon Jun 12 07:25:38.491092 2023] [ssl:warn] [pid 1] AH01906: www.example.com:443:0 server certificate is a CA certificate (BasicConstraints: CA == TRUE !?)
+[Mon Jun 12 07:25:38.491169 2023] [ssl:warn] [pid 1] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name
+[Mon Jun 12 07:25:38.507413 2023] [ssl:warn] [pid 1] AH01906: www.example.com:443:0 server certificate is a CA certificate (BasicConstraints: CA == TRUE !?)
+[Mon Jun 12 07:25:38.507446 2023] [ssl:warn] [pid 1] AH01909: www.example.com:443:0 server certificate does NOT include an ID which matches the server name

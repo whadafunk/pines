@@ -1,0 +1,24 @@
+AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 172.17.0.2. Set the 'ServerName' directive globally to suppress this message
+[Mon Jun 12 07:25:38.509629 2023] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.56 (Unix) PHP/8.1.17 OpenSSL/1.1.1t configured -- resuming normal operations
+[Mon Jun 12 07:25:38.509676 2023] [core:notice] [pid 1] AH00094: Command line: 'httpd -D FOREGROUND'
+[Mon Jun 12 08:04:28.151490 2023] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 172.17.0.2. Set the 'ServerName' directive globally to suppress this message
+[Mon Jun 12 08:05:50.891511 2023] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.56 (Unix) PHP/8.1.17 configured -- resuming normal operations
+[Mon Jun 12 08:05:50.891631 2023] [core:notice] [pid 1] AH00094: Command line: 'httpd -D FOREGROUND'
+[Mon Jun 12 09:12:44.275795 2023] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 172.17.0.2. Set the 'ServerName' directive globally to suppress this message
+[Mon Aug 28 12:31:49.162561 2023] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.56 (Unix) PHP/8.1.22 configured -- resuming normal operations
+[Mon Aug 28 12:31:49.162583 2023] [core:notice] [pid 1] AH00094: Command line: 'httpd -D FOREGROUND'
+[Mon Aug 28 15:04:38.931137 2023] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 172.17.0.2. Set the 'ServerName' directive globally to suppress this message
+[Mon Aug 28 15:06:03.369871 2023] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.56 (Unix) PHP/8.1.22 configured -- resuming normal operations
+[Mon Aug 28 15:06:03.369893 2023] [core:notice] [pid 1] AH00094: Command line: 'httpd -D FOREGROUND'
+[Mon Aug 28 15:07:32.864052 2023] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 172.17.0.2. Set the 'ServerName' directive globally to suppress this message
+[Mon Aug 28 15:07:44.030937 2023] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.56 (Unix) PHP/8.1.22 configured -- resuming normal operations
+[Mon Aug 28 15:07:44.030956 2023] [core:notice] [pid 1] AH00094: Command line: 'httpd -D FOREGROUND'
+[Mon Aug 28 15:07:56.921648 2023] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 172.17.0.2. Set the 'ServerName' directive globally to suppress this message
+[Mon Aug 28 15:08:39.319866 2023] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.56 (Unix) PHP/8.1.22 configured -- resuming normal operations
+[Mon Aug 28 15:08:39.319888 2023] [core:notice] [pid 1] AH00094: Command line: 'httpd -D FOREGROUND'
+[Mon Aug 28 21:02:40.720555 2023] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
