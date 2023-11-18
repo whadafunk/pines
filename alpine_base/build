@@ -1,0 +1,5 @@
+#!/bin/bash
+
+docker image build -t routerology/alpine_base:1.1 .
+docker image tag routerology/alpine_base:1.1 routerology/phpine:latest
+docker image push --all-tags routerology/alpine_base
