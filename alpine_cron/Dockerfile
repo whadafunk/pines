@@ -23,13 +23,15 @@ RUN	adduser --disabled-password -g john -h /home/john -s /bin/sh john && \
 	echo "john:pass123" | chpasswd
 
 
-# We can allways mount an external crontab to the /var/spool/cron/crontabs/root
+# We can allways mount an external crontab to the /var/spool/cron/crontabs/
 COPY crontabs/root /root/crontab_file
 RUN crontab -u root /root/crontab_file
 
 # If you want to run crontabs under the previously created user
 #COPY crontabs/john /home/john/crontab_file
 #RUN crontab -u john /home/john/crontab_file
+
+# It might also work if you copy the file directly under /var/spool/cron/crontabs/ with the name of the user
 
 
 CMD ["/usr/sbin/crond","-f"]

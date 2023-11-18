@@ -1,3 +1,4 @@
 #!/bin/bash
 
 docker image build -t routerology/phpine:7.4 .
+docker image push routerology/phpine:7.4
