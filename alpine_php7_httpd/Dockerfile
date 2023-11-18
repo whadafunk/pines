@@ -90,6 +90,9 @@ RUN apk update && \
 #COPY ssl/*.crt /usr/local/share/ca-certificates
 #RUN update-ca-certificates
 
+# We normally do not need to load the ssl module, so we delete the config file
+RUN rm -f /etc/apache2/conf.d/ssl.conf
+
 # Set the correct timezone
 
 ENV TZ="Europe/Bucharest"

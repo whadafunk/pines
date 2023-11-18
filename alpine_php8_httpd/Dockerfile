@@ -60,6 +60,7 @@ RUN apk update && \
 	php81-opcache \
 	php81-iconv \
 	php81-ctype \
+	php81-gmp \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Add the following extra tools if you need to do some troubleshooting on the container
@@ -85,6 +86,10 @@ RUN apk update && \
 # If we are using SSL, the we might need to add our ca to the trusted ssl chain
 #COPY ssl/*.crt /usr/local/share/ca-certificates
 #RUN update-ca-certificates
+
+# We normally do not load the ssl module, so we delete the config file
+
+RUN rm -f /etc/apache2/conf.d/ssl.conf
 
 # Set the correct timezone
 

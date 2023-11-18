@@ -1,3 +1,4 @@
 AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 172.17.0.2. Set the 'ServerName' directive globally to suppress this message
 [Thu Aug 31 07:13:38.983211 2023] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.56 (Unix) PHP/7.4.33 configured -- resuming normal operations
 [Thu Aug 31 07:13:38.983251 2023] [core:notice] [pid 1] AH00094: Command line: 'httpd -D FOREGROUND'
+[Thu Aug 31 07:54:37.801038 2023] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
