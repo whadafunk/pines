@@ -1,7 +1,7 @@
 # Start with the basics
 FROM alpine:latest
 MAINTAINER gri.daniel@gmail.com
-LABEL website=www.com
+LABEL website=www.routerology.com
 
 # The cron daemon itself should be run as root, even if you refer crontabs for different users
 # ...Yes, I know root is the default
@@ -23,7 +23,7 @@ RUN	adduser --disabled-password -g john -h /home/john -s /bin/sh john && \
 	echo "john:pass123" | chpasswd
 
 
-# We can allways mount an external crontab to the /var/spool/cron/crontabs/
+# We can always mount an external crontab to the /var/spool/cron/crontabs/
 COPY crontabs/root /root/crontab_file
 RUN crontab -u root /root/crontab_file
 

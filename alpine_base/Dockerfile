@@ -13,6 +13,19 @@ ENV PS1='\n\e[32m\e[1m\u@\h\e[0m \e[94m\w \e[32m\e[1m$\e[0m\e[0m\e[39m\e[49m '
 COPY log/admin/journal /var/log/admin/journal
 COPY log/admin/summary /var/log/admin/summary
 
+# Install a couple of basic tools
+RUN 	apk update && \
+	apk add \
+		vim \
+		procps-ng \
+		shadow \
+		tzdata \
+		ca-certificates \
+		wget \
+		bash \
+		sudo \
+		&& rm -rf /var/cache/apk/*
+
 # Set the timezone
 ENV TZ="Europe/Bucharest"
 
@@ -22,19 +35,8 @@ ENV TZ="Europe/Bucharest"
 # the symbolic link /etc/localtime
 # Maybe a third alternative would be to mount both /etc/timezone and /etc/localtime from local host
 
-# Install a couple of basic tools
-RUN 	apk update && \
-	apk add \
-		vim\
-		procps-ng \
-		shadow\
-		ca-certificates\
-		wget\
-		bash\
-		sudo\
-		&& rm -rf /var/cache/apk/*
 
-# Copy an edited sudoers file, with uncommented wheel group line
+# Copy our version of the sudoers file, with uncommented wheel group line
 COPY sudoers /etc/sudoers
 
 # If you have custom ca certificates, place them under ca_certs directory

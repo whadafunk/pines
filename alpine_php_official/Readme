@@ -8,7 +8,7 @@ The apache php module sees only the core php module, and not the rest of them; a
 It was a bit of work to solve the dependencies and build all the modules, but I don't have the time to investigate this issue anymore.
 Maybe is something about the paths where the php modules are installed. 
 
-If you manage to solve this issue please drop me a line at gri.daniel@gmail.com.
+If you manage to solve this issue..., good for you
 
 
 cheers,

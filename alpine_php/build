@@ -1,0 +1,8 @@
+#!/bin/bash
+
+docker image build -t routerology/phpine:8.1 -f Dockerfile_8.1 .
+docker image build -t routerology/phpine:8.2 -f Dockerfile_8.2 .
+docker image build -t routerology/phpine:7.4 -f Dockerfile_7 .
+docker image build -t routerology/phpine:www -f Dockerfile_www .
+docker image tag routerology/phpine:8.2 routerology/phpine:latest
+docker image push --all-tags routerology/phpine
