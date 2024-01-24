@@ -16,7 +16,6 @@ services:
     privileged: false
     networks:
       glpi_net:
-
   glpi:
     image: routerology/glpi
     container_name: glpi_app

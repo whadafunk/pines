@@ -1,0 +1,9 @@
+#!/bin/bash
+docker container run \
+	--detach \
+	--interactive \
+	--tty \
+	--name bastillion \
+	--hostname bastillion \
+	--mount type=bind,source=$(pwd)/data,target=/opt \
+	routerology/bastillion:latest
