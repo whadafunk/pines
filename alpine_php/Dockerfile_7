@@ -70,21 +70,23 @@ RUN apk update && \
 # Add the following extra tools if you need to do some troubleshooting on the container
 # The same goes for the apache2-ssl also
 
-#RUN apk update && \
-#	apk add \
-#	net-tools \
-#	vim \
-#	tcpdump \
-#	ca-certificates \
-#	iproute2 \
-#	wget \
-#	apache2-ssl \
-# 	&& rm -rf /var/lib/apt/lists/* 
+RUN apk update && \
+	apk add \
+	net-tools \
+	tcpdump \
+	ca-certificates \
+	iproute2 \
+	shadow \
+	wget \
+ 	&& rm -rf /var/lib/apt/lists/* 
 
 # The alpine container starts httpd as root, and after that it starts the child processes as "apache" user
 # which has uid 100
+# Lets modify that uid gid to 1000:1000
 
-# USER 100
+RUN 	usermod -u 1000 apache && \
+	groupmod -g 1000 apache
+
 
 
 # If we are using SSL, then we might need to add our CA to the trusted ssl chain

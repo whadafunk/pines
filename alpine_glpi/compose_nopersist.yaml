@@ -15,7 +15,7 @@ services:
     init: false
     privileged: false
     networks:
-      - default
+      glpi_net:
 
   glpi:
     image: routerology/glpi
@@ -30,35 +30,7 @@ services:
     init: true
     privileged: false
     networks:
-      - default
-    volumes: 
-      - type: bind
-        source: ./www
-        target: /var/www/glpi
-      - type: bind
-        source: ./log
-        target: /var/log/apache2
-      - type: bind
-        source: ./log/glpi
-        target: /var/log/glpi
-      - type: bind
-        source: ./httpd_conf/httpd.conf
-        target: /etc/apache2/httpd.conf
-      - type: bind
-        source: ./php_ini/php.ini
-        target: /etc/php82/php.ini
-      - type: bind
-        source: ./glpi_config
-        target: /etc/glpi
-      - type: bind
-        source: ./glpi_var
-        target: /var/lib/glpi
-      - type: bind
-        source: ./downstream
-        target: /var/www/glpi/inc/downstream.php
-      - type: bind
-        source: ./local_define.php
-        target: /etc/glpi/local_define.php
+      glpi_net:
 
 networks:
   glpi_net:

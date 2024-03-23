@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DOCKER_NAME=servicedesk
+DOCKER_NAME=glpi
 docker container run \
 	--name ${DOCKER_NAME} \
 	--hostname ${DOCKER_NAME}  \
@@ -9,15 +9,19 @@ docker container run \
 	--tty \
 	--restart unless-stopped \
 	--env TZ="Europe/Bucharest" \
-	--mount type=bind,source=$(pwd)/www,destination=/var/www/localhost/htdocs \
+	--mount type=bind,source=$(pwd)/www,destination=/var/www/glpi \
 	--mount type=bind,source=$(pwd)/log,destination=/var/log/apache2 \
 	--mount type=bind,source=$(pwd)/log/glpi,destination=/var/log/glpi \
 	--mount type=bind,source=$(pwd)/httpd_conf/httpd.conf,destination=/etc/apache2/httpd.conf \
-	--mount type=bind,source=$(pwd)/php_ini/php.ini,destination=/etc/php81/php.ini \
+	--mount type=bind,source=$(pwd)/php_ini/php.ini,destination=/etc/php82/php.ini \
 	--mount type=bind,source=$(pwd)/glpi_config,destination=/etc/glpi \
 	--mount type=bind,source=$(pwd)/glpi_var,destination=/var/lib/glpi \
-	--mount type=bind,source=$(pwd)/downstream.php,destination=/var/www/glpi/inc/downstream.php \
+	--mount type=bind,source=$(pwd)/downstream,destination=/var/www/glpi/inc/downstream.php \
+	--mount type=bind,source=$(pwd)/local_define.php,destination=/etc/glpi/local_define.php \
 	--init \
 	routerology/glpi
+
+
+# Pay attention to PHP version when mounting the php.ini config file
 
 

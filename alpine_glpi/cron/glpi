@@ -1,4 +1,4 @@
 # m h  dom mon dow   command
 # *       *       *       *       *       /usr/bin/php /var/www/localhost/htdocs/front/cron.php > /proc/1/fd/1 2> /proc/1/fd/2
-*       *       *       *       *       /usr/bin/php /var/www/localhost/htdocs/front/cron.php > /var/log/glpi/cron.log 2>&1
+*       *       *       *       *       /usr/bin/php /var/www/glpi/front/cron.php > /var/log/glpi/cron.log 2>&1
 

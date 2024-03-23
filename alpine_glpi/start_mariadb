@@ -1,0 +1,29 @@
+#!/bin/bash
+DOCKER_NAME=glpi_db
+docker container run \
+	--detach \
+	--restart unless-stopped \
+	--name ${DOCKER_NAME} --hostname ${DOCKER_NAME} \
+	--network bridge \
+	-e MARIADB_ROOT_PASSWORD=pass123 \
+	-e MARIADB_USER=somedude \
+	-e MARIADB_PASSWORD=somesecret \
+	-e MARIADB_DATABASE=somebase \
+	-e TZ=Europe/Bucharest \
+	mariadb:latest
+
+
+# If you are using this in production you might want to mount some persistent storage in your container
+
+#	-v $(pwd)/data:/var/lib/mysql/ \
+#	-v $(pwd)/conf/conf.d:/etc/mysql/conf.d \
+#	-v $(pwd)/logs:/var/log/mysql \
+#
+#	MARIADB_ROOT_HOST / MYSQL_ROOT_HOST
+
+# This is the hostname part of the root user created. 
+# By default this is %, however it can be set to any default MariaDB allowed hostname component. 
+# Setting this to localhost will prevent any root user being accessible except via the unix socket.
+#
+# MARIADB_DATABASE / MYSQL_DATABASE
+# MARIADB_USER / MYSQL_USER, MARIADB_PASSWORD / MYSQL_PASSWORD
