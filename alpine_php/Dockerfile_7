@@ -81,8 +81,8 @@ RUN apk update && \
  	&& rm -rf /var/lib/apt/lists/* 
 
 # The alpine container starts httpd as root, and after that it starts the child processes as "apache" user
-# which has uid 100
-# Lets modify that uid gid to 1000:1000
+# which has uid 100 by default
+# Lets modify that uid gid to 1000:1000, so we have a better chance of matching an existing UID on the running host.
 
 RUN 	usermod -u 1000 apache && \
 	groupmod -g 1000 apache
