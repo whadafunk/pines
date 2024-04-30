@@ -32,3 +32,4 @@ Such configurations should usually also set:
 > username-as-common-name
 
 which will tell the server to use the username for indexing purposes as it would use the Common Name of a client which was authenticating via a client certificate.
+*This last config option does not affect the authentication scripts as it happens after the authentication*
