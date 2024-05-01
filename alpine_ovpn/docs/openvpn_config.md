@@ -49,16 +49,21 @@ Other than the server roles, most of the options can be the same. Here is my pro
 
 
 ### Service Internals
-*configuration options related to openvpn service*
+*configuration options related to openvpn service in general*
 
-- **daemon** *progname* 
-- **user** *user_name*; after starting the process drop to user_name privilege
-- **group** *group_name*; after starting the process drop to group_name privilege
-- **nice** *-0+* ;*negative values give higher priority, while positive values give lower priority to the ovpn process*
-- **status** *file n* ;write operational status to file every n seconds
-- **status-version** *1|2|3* ; higher numbers give more verbose status
+- **daemon** *progname*; start the service daemonized and assign optionally a name to the daemon.
+- **user** *user_name*; after starting the process drop to user_name privilege.
+- **group** *group_name*; after starting the process drop to group_name privilege.
+- **nice** *-0+* ;*negative values give higher priority, while positive values give lower priority to the ovpn process*.
+- **status** *file n*; write operational status to file every n seconds.
+- **status-version** *1|2|3* ; higher numbers give more verbose status.
 - **writepid** *file*; Write OpenVPN's main process ID to file. 
-- **chroot /path/to/dir**
+- **chroot** */path/to/dir*; use a chroot setup for a highly secure setup.
+- **persist-tun**; Don't close and reopen TUN/TAP device or run up/down scripts across SIGUSR1 or --ping-restart restarts.
+- **persist-key**; Don't re-read key files across SIGUSR1 or --ping-restart.
+- **persist-local-ip**; Preserve initially resolved local IP address and port number across SIGUSR1 or --ping-restart restarts.
+- **persist-remote-ip**; Preserve most recently authenticated remote IP address and port number across SIGUSR1 or --ping-restart restarts.
+- **max-clients** *{nr}* ; 	Limit server to a maximum of n concurrent clients.
 
 ### Logging
 
@@ -71,6 +76,7 @@ Other than the server roles, most of the options can be the same. Here is my pro
 ### Protocol Options
 
 - **allow-compression** *asym | no | yes*; compression is not encouraged, that's why no is the default option
+- **compress {algorithm}** - algorithm can be "lzo", or "lz4"; compression is not recommended
 - **data-ciphers** *cipher-list*; use this one if you want to specify encryption ciphers in tls mode
 - **auth {alg}** - alg is one of: MD5, SHA1, RSA-SHA1, DSA-SHA1, RSA-SHA256, SHA256, SHA384, SHA512
 - **cipher {alg}** - the default is BF-CBC, but is legacy. AES-128-CBC, AES-128-CFB, AES-256-GCM, openvpn --show-ciphers 
@@ -79,28 +85,34 @@ Other than the server roles, most of the options can be the same. Here is my pro
 
 ### TLS Configuration
 
-- **ca {/path/to/ca}**
-- **cert {/path/to/server_cert}**
-- **key {/path/to/server_key}**
-- **pkcs12 {/path/to/file}** - Specify a PKCS #12 file containing local private key, local certificate, and root CA certificate. This option can be used instead of *--ca*, *--cert*, and *--key*.
-- **dh /path/to/dh** - Diffie Hellman parameters in pem format (required for tls-server only); *openssl dhparam -out dh2048.pem 2048*
-- **tls-auth {/path/to/tls_key}** - the tls key can be generated with easyrsa or openvpn --genkey
-- **tls-crypt {/path/to/tls_key}** 
-- **crl-verify {/path/to/crl}**
+- **ca {/path/to/ca}**; Certificate authority (CA) file in .pem format, also referred to as the root certificate.
+- **cert {/path/to/server_cert}**; Directory containing trusted certificates (CAs and CRLs). Not available with mbed TLS.
+- **key {/path/to/server_key}**; Local peer's private key in .pem format.
+- **pkcs12 {/path/to/file}**; Specify a PKCS #12 file containing local private key, local certificate, and root CA certificate. This option can be used instead of *--ca*, *--cert*, and *--key*.
+- **dh /path/to/dh**;  Diffie Hellman parameters in pem format (required for tls-server only); *openssl dhparam -out dh2048.pem 2048*
+- **tls-auth {/path/to/tls_key}**;  the tls key can be generated with *easyrsa or openvpn --genkey*
+- **tls-crypt {/path/to/tls_key}**; use the same type of key as for tls-auth, but provides stronger protection
+- **crl-verify** *{/path/to/crl} [dir]*; we can specify either path to a crl file and omit *dir* flag, or specify path to a dir containing crls and use the *dir* flag.
 - **tls-server** - Enable TLS and assume server role during TLS handshake.
 - **tls-client** - Enable TLS and assume client role during TLS handshake.
-- **verify-client-cert {require | optional | none}** - this option replaced *--client-cert-not-required*
-- **remote-cert-tls {server | client}** - check the key usage of the certificate
+- **verify-client-cert** *{require | optional | none}* - this option replaced *--client-cert-not-required*
+- **remote-cert-tls** *{server | client}* - check the key usage of the certificate
 
 ### Network Configuration
 
 - **local {IP}** - If specified, OpenVPN will bind to this address only. If unspecified, OpenVPN will bind to all interfaces. 
-- **remote {IP [Port] [Proto]}** - The remote end OpenVPN
-- **proto {udp | tcp-server | tcp-client}**
-- **port {portNr}** - this will set lport and rport to the same number
-- **lport {portNr}** - the local port to listen to
-- **rport {portNr}** - the remote port to connect to
+- **remote** *{IP [Port] [Proto]}* - The remote end OpenVPN
+- **proto** *{udp | tcp-server | tcp-client}*
+- **port** *{portNr}* - this will set lport and rport to the same number
+- **lport** *{portNr}* - the local port to listen to
+- **rport** *{portNr}* - the remote port to connect to
 - **float** - permit dynamic ip addresses on the remote endpoint
+- **keepalive** *{interval timeout}* - A helper directive designed to simplify the expression of --ping and --ping-restart.
+- **ping** *{seconds}*; Ping remote over the TCP/UDP control channel if no packets have been sent for at least n seconds  
+    (specify --ping on both peers to cause ping packets to be sent in both directions since OpenVPN ping packets are not echoed like IP ping packets).
+- **ping-exit** *{seconds}*; Causes OpenVPN to exit after n seconds pass without reception of a ping or other packet from remote. 
+- **ping-restart** *{seconds}*; Similar to --ping-exit, but trigger a SIGUSR1 restart after n seconds pass without reception of a ping or other packet from remote.
+- **inactive** *args*; exit after n seconds of inactivity on the tun/tap device
 
 ### Tunnel Interface Configuration
 
@@ -127,10 +139,9 @@ Other than the server roles, most of the options can be the same. Here is my pro
 - **dns** *search-domains domain [domain ...]*
 - **dns** *server 1 address addr[:port] [addr[:port] ...]*
 - **dns** *server 1 resolve-domains domain [domain ...]*
-- **inactive** *args*; exit after n seconds of inactivity on the tun/tap device
 - **pull** ; It indicates to OpenVPN that it should accept options pushed by the server
 - **remote** *host [port] [proto]*
-- **--topology {subnet | net30 | p2p}** - This refers to layer3/IP topology, and net30 and p2p are not used so much lately. 
+- **topology {subnet | net30 | p2p}** - This refers to layer3/IP topology, and net30 and p2p are not used so much lately.  It is usually pushed from the server.
 >Note: Using *--topology subnet* changes the interpretation of the arguments of *--ifconfig* to mean "address netmask", and no longer "*localIP remoteIP*".
 - **tls-client**
 
@@ -170,29 +181,9 @@ Option flags: *local, autolocal, def1, bypass-dns, bypass-dhcp, block-local*
 - **rmtun**
 
 
-
-
-# OpenVPN Configuration Parameters
-
-
->Two of the most important decisions about openvpn are the mode and the topology.  
->Mode parameter configures site2site or remoteVPN.  
->The interface type tun or tap, configures L3 tunneling or bridge tunneling
-
-
 ### Here are the server options
 
 
 - **--duplicate-cn** - allow multiple sessions from the same client
-- **--keepalive {interval timeout}** - A helper directive designed to simplify the expression of --ping and --ping-restart.
-- **--ping {seconds}**
-- **--ping-exit {seconds}**
-- **--ping-restart {seconds}**
-- **--persist-tun**
-- **--persist-key**
-- **--persist-local-ip**
-- **--persist-remote-ip**
-- **--max-clients {nr}**
-- **--compress {algorithm}** - algorithm can be "lzo", or "lz4"
 
 

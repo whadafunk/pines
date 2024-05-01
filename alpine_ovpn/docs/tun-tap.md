@@ -1,8 +1,8 @@
-# Notes about tun/tap interfaces
+# Notes about tun/tap interfaces in Linux
 
 >These notes represent my understanding about this technology, and they  
 >might be very well wrong. They are based partly on some assumptions and  
->some documentation I could find.
+>some documentation pages I could find online.
 
 
 Tun/Tap interfaces can be opened as a file descriptor from userspace applications. 
