@@ -10,8 +10,8 @@ COPY Readme.md /usr/src/app/README.md
 ENV PS1='\n\e[32m\e[1m\u@\h\e[0m \e[94m\w \e[32m\e[1m$\e[0m\e[0m\e[39m\e[49m '
 
 # I usually mount these files persistent, but I added them here to have them at least as a template
-COPY log/admin/journal /var/log/admin/journal
-COPY log/admin/summary /var/log/admin/summary
+#COPY log/admin/journal /var/log/admin/journal
+#COPY log/admin/summary /var/log/admin/summary
 
 # Set the timezone
 ENV TZ="Europe/Bucharest"
@@ -23,11 +23,16 @@ ENV TZ="Europe/Bucharest"
 RUN 	apk update && \
 	apk add \
 		sudo \
+		bash \
 		easy-rsa \
 		ca-certificates \
 		openvpn \
+		openvpn-auth-pam \
+		openvpn-auth-ldap \
+		openvpn-auth-script \
+		openvpn-doc \
+		openvpn-openrc \
 		&& rm -rf /var/cache/apk/*
-
 
 # If you have custom ca certificates, place them under ca_certs directory
 COPY ca_certs/*.crt /usr/local/share/ca-certificates
@@ -39,14 +44,21 @@ RUN echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.d/ipv4.conf
 # Copy the tls material
 COPY tls/ /etc/openvpn/tls
 
-# Copy the configuration files
-COPY config_samples/ /etc/openvpn/
+
+# Create the ccd directory
+RUN mkdir /etc/openvpn/ccd
 
 
 # It is a good practice to not use the container as root
-RUN 	adduser --disabled-password -g admin -G wheel -h /home/admin -s /bin/sh admin && \
-	echo "admin:pass123" | chpasswd && \
-	addgroup admin wheel
+RUN	adduser --disabled-password -g admin -G wheel -h /home/admin -s /bin/sh admin && \
+	adduser --disabled-password -g ovpn -h /home/ovpn -s /bin/sh ovpn && \
+	echo "admin:pass123" | chpasswd 
+
+RUN chown -R ovpn:ovpn /etc/openvpn
+
+# Copy the configuration files
+COPY config_samples/ /etc/openvpn/
+COPY entrypoint.sh /root/entrypoint.sh
 
 #USER admin
 
@@ -54,5 +66,5 @@ WORKDIR /etc/openvpn
 
 # This is the default from the base image, but I have it here just for clarity
 # CMD ["/usr/sbin/openvpn","--config /etc/openvpn/server_tun.conf"]
-CMD ["/usr/sbin/openvpn","--config ./server_tun.conf"]
+ENTRYPOINT ["/bin/bash","/root/entrypoint.sh"]
 

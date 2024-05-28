@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker image build -t routerology/ovpn:latest .
+docker image build --no-cache -t routerology/ovpn:latest .

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -X
 
 ### Starting OpenVPN in a container poses a couple of challenges.
 ### First of all the container needs the NET_ADMIN capability, to be able to create the tun/tap interface
@@ -13,3 +13,4 @@
 mkdir -p /dev/net
 mknod /dev/net/tun c 10 200
 chmod 600 /dev/net/tun
+/usr/sbin/openvpn --config /etc/openvpn/openvpn-server-tun.conf

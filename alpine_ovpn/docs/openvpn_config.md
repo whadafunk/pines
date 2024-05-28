@@ -96,6 +96,10 @@ Other than the server roles, most of the options can be the same. Here is my pro
 - **tls-server** - Enable TLS and assume server role during TLS handshake.
 - **tls-client** - Enable TLS and assume client role during TLS handshake.
 - **verify-client-cert** *{require | optional | none}* - this option replaced *--client-cert-not-required*
+- **verify-x509-name** *args*; Accept connections only if a host's X.509 name is equal to name.
+    > verify-x509-name 'C=KG, ST=NA, L=Bishkek, CN=Server-1' subject
+    > verify-x509-name Server-1 name
+    > verify-x509-name Server- name-prefix
 - **remote-cert-tls** *{server | client}* - check the key usage of the certificate
 
 ### Network Configuration
@@ -119,7 +123,7 @@ Other than the server roles, most of the options can be the same. Here is my pro
 - **mode {server | p2p}** , p2p being the default and working as a site to site VPN
 - **dev {tunX | tapX}** - Specify the name of an interface that will be created by openvpn. Use tun for L3 tunneling and tap for bridge VPN
 - **dev-type {tun | tap}** - Use this option only if the device names above are not starting with tun or tap.
-- **dev-node {/dev/net/node_name}** - Explicitly set the device node rather than using /dev/net/tun, /dev/tun, /dev/tap, etc.  
+- **dev-node {/dev/net/node_name}** - Explicitly set the device node rather than using /dev/net/tun. On Linux, tun/tap devices are created by accessing /dev/net/tun
 >If OpenVPN cannot figure out whether node is a TUN or TAP device based on the name, you should also specify *--dev-type tun* or *--dev-type tap*.  
 >On Windows systems, select the TAP-Win32 adapter which is named node in the Network Connections Control Panel or the raw GUID of the adapter enclosed by braces. The *--show-adapters* option under Windows can also be used to enumerate all available TAP-Win32 adapters and will show both the network connections control panel name and the GUID for each TAP-Win32 adapter.
 - **link-mtu**
@@ -139,9 +143,14 @@ Other than the server roles, most of the options can be the same. Here is my pro
 - **dns** *search-domains domain [domain ...]*
 - **dns** *server 1 address addr[:port] [addr[:port] ...]*
 - **dns** *server 1 resolve-domains domain [domain ...]*
-- **pull** ; It indicates to OpenVPN that it should accept options pushed by the server
+- **dhcp-option** *type [parm]*; 
+    - DOMAIN name
+    - DOMAIN-SEARCH name
+    - DNS address
+    - NTP address
+- **pull**; It indicates to OpenVPN that it should accept options pushed by the server
 - **remote** *host [port] [proto]*
-- **topology {subnet | net30 | p2p}** - This refers to layer3/IP topology, and net30 and p2p are not used so much lately.  It is usually pushed from the server.
+- **topology** *{subnet | net30 | p2p}* - This refers to layer3/IP topology, and net30 and p2p are not used so much lately.  It is usually pushed from the server.
 >Note: Using *--topology subnet* changes the interpretation of the arguments of *--ifconfig* to mean "address netmask", and no longer "*localIP remoteIP*".
 - **tls-client**
 
@@ -179,9 +188,15 @@ Option flags: *local, autolocal, def1, bypass-dns, bypass-dhcp, block-local*
 
 - **mktun**
 - **rmtun**
+- **show-ciphers**
+- **show-digests**
+- **show-engines**
+- **show-tls**
+- **genkey** *secret file*
 
 
-### Here are the server options
+
+### Authentication Options
 
 
 - **--duplicate-cn** - allow multiple sessions from the same client

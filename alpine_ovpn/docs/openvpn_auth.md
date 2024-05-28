@@ -25,7 +25,7 @@ To use it, add this to the server-side config file:
 
 > plugin /usr/share/openvpn/plugin/lib/openvpn-auth-pam.so login
 
-This will tell the OpenVPN server to validate the username/password entered by clients using the loginPAM module.  
+This will tell the OpenVPN server to validate the username/password entered by clients using the login PAM module.  
 
 Such configurations should usually also set:  
 
