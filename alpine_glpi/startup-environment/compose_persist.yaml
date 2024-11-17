@@ -5,7 +5,7 @@ services:
     stdin_open: false
     tty: false
     hostname: glpi_db
-    domainname: routerology.ro
+    domainname: routerology.lab
     restart: unless-stopped
     environment:
       MARIADB_ROOT_PASSWORD: rootsecret
@@ -19,34 +19,31 @@ services:
 
   glpi:
     image: routerology/glpi
-    container_name: glpi
+    container_name: glpi_app
     stdin_open: true
     tty: true
-    hostname: glpi
-    domainname: routerology.ro
+    hostname: glpi_app
+    domainname: routerology.lab
     restart: unless-stopped
-    environment:
-      test_var1: test_value
     init: true
     privileged: false
+    ports:
+      - "8080:80"
     networks:
       - default
     volumes: 
       - type: bind
-        source: ./www
-        target: /var/www/glpi
-      - type: bind
-        source: ./log
+        source: ./logs
         target: /var/log/apache2
       - type: bind
-        source: ./log/glpi
+        source: ./logs/glpi
         target: /var/log/glpi
       - type: bind
-        source: ./httpd_conf/httpd.conf
+        source: ./server_config/httpd.conf
         target: /etc/apache2/httpd.conf
       - type: bind
-        source: ./php_ini/php.ini
-        target: /etc/php82/php.ini
+        source: ./server_config/php.ini
+        target: /etc/php83/php.ini
       - type: bind
         source: ./glpi_config
         target: /etc/glpi
@@ -54,24 +51,14 @@ services:
         source: ./glpi_var
         target: /var/lib/glpi
       - type: bind
-        source: ./downstream
-        target: /var/www/glpi/inc/downstream.php
+        source: ./glpi_marketplace
+        target: /var/www/glpi/marketplace
       - type: bind
-        source: ./local_define.php
-        target: /etc/glpi/local_define.php
+        source: ./glpi_plugins
+        target: /var/www/glpi/plugins
 
 networks:
-  glpi_net:
-    name: glpi_net
-    driver: bridge
-    attachable: true
-    ipam:
-      driver: default
-      config:
-        - subnet: 192.168.200.0/24
-          ip_range: 192.168.200.0/24
-          gateway: 192.168.200.1
-          aux_addresses:
-            host1: 192.168.200.2
-            host2: 192.168.200.3
+  default:
+    name: custom_bridge
+    external: true
 

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+rm -rf ./glpi_var/*
+rm -rf ./glpi_config/*
+rm -rf ./logs/glpi/*
+rm -f ./logs/access.log
+rm -f ./logs/error.log
+rm -f ./glpi_marketplace/*
+rm -f ./glpi_plugins/*

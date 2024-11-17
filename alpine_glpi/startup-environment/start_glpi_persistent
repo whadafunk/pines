@@ -1,0 +1,27 @@
+#!/bin/bash
+
+DOCKER_NAME=glpi_app
+docker container run \
+	--name ${DOCKER_NAME} \
+	--hostname ${DOCKER_NAME}  \
+	--detach \
+	--rm \
+	--interactive \
+	--tty \
+	--env TZ="Europe/Bucharest" \
+	--mount type=bind,source=$(pwd)/logs,destination=/var/log/apache2 \
+	--mount type=bind,source=$(pwd)/logs/glpi,destination=/var/log/glpi \
+	--mount type=bind,source=$(pwd)/server_config/httpd.conf,destination=/etc/apache2/httpd.conf \
+	--mount type=bind,source=$(pwd)/server_config/php.ini,destination=/etc/php83/php.ini \
+	--mount type=bind,source=$(pwd)/glpi_config,destination=/etc/glpi \
+	--mount type=bind,source=$(pwd)/glpi_var,destination=/var/lib/glpi \
+	--mount type=bind,source=$(pwd)/glpi_marketplace,destination=/var/www/glpi/marketplace \
+	--mount type=bind,source=$(pwd)/glpi_plugins,destination=/var/www/glpi/plugins \
+	--publish 8080:80 \
+	--init \
+	routerology/glpi
+
+
+# Pay attention to PHP version when mounting the php.ini config file
+
+

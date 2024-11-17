@@ -1,10 +1,5 @@
-compose.yaml
-build
-downstream.php
-glpi_config
-glpi_var
-log
-start
-start_mariadb
 cleanup
-www
+Readme.md
+build
+startup-environment
+

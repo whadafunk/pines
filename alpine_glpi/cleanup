@@ -1,8 +1,0 @@
-#!/bin/bash
-
-rm -rf ./www/*
-rm -rf ./glpi_var/*
-rm -rf ./glpi_config/*
-rm -rf ./log/glpi/*
-rm -f ./log/access.log
-rm -f ./log/error.log

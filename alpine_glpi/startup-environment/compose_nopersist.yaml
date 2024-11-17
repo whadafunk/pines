@@ -5,7 +5,7 @@ services:
     stdin_open: false
     tty: false
     hostname: glpi_db
-    domainname: routerology.ro
+    domainname: routerology.lab
     restart: unless-stopped
     environment:
       MARIADB_ROOT_PASSWORD: rootsecret
@@ -15,35 +15,24 @@ services:
     init: false
     privileged: false
     networks:
-      glpi_net:
+      - default
 
   glpi:
     image: routerology/glpi
-    container_name: glpi
+    container_name: glpi_app
     stdin_open: true
     tty: true
-    hostname: glpi
-    domainname: routerology.ro
+    hostname: glpi_app
+    domainname: routerology.lab
     restart: unless-stopped
-    environment:
-      test_var1: test_value
     init: true
     privileged: false
+    ports:
+      - "8080:80"
     networks:
-      glpi_net:
+      - default
 
 networks:
-  glpi_net:
-    name: glpi_net
-    driver: bridge
-    attachable: true
-    ipam:
-      driver: default
-      config:
-        - subnet: 192.168.200.0/24
-          ip_range: 192.168.200.0/24
-          gateway: 192.168.200.1
-          aux_addresses:
-            host1: 192.168.200.2
-            host2: 192.168.200.3
-
+  default:
+    name: custom_bridge
+    external: true
