@@ -1,0 +1,24 @@
+# HTTPD/PHP based on alpine linux
+
+This container is implementing a webserver with php. It uses apache/httpd for the webserver
+and the php packages offered by the alpine distribution.
+
+Apart from httpd/php it is installing some other usefull tools
+
+	apk add \
+	net-tools \
+	tcpdump \
+	ca-certificates \
+	iproute2 \
+	shadow \
+	wget \
+
+The alpine container starts httpd as root, and after that it starts the child processes as "apache" user
+which has uid 100.
+Lets modify that uid gid to 1000:1000
+
+ 	usermod -u 1000 apache && \
+	groupmod -g 1000 apache
+
+
+
