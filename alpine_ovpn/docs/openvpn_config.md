@@ -3,9 +3,8 @@
 
 ## Overview
 
-When dealing with openvpn you need to think of the various peer roles which can be server, client and peer. 
-Traditionally OpenVPN was running only in peer mode for site2site tunnels, but later versions added the server mode, which basically means that one openvpn process,  
-can accept multiple connections from clients. This is legitimate because there can be multiple sessions on a destination port, as long as the source is different.  
+When dealing with openvpn, first thing you need to think of, are the various modes in which you can run it, which can be server, client and peer. 
+Traditionally OpenVPN was running only in peer mode for site2site tunnels, but later versions added the server mode, which basically means that one openvpn process, can accept multiple connections from clients, and has some possibilities to manage those clients (ip assignment, authentication, routing, pushing other config options). This is legitimate because there can be multiple sessions on a destination port, as long as the source is different.  
 There is a config parameter called mode which sets mode to server or p2p. *I think (not sure) that p2p works for both client and peer roles.* 
 Also very important to think about the topology, which basically states how the local tun interface will be configured; this topology can also be pushed by the server,  
 but is usually included in the server directive together with ifconfig and ifconfig-pool.
@@ -45,7 +44,43 @@ Let's see a couple of points for each of this roles:
 
 -------------------------------------------------------------------------------------------------------------------
 
-Other than the server roles, most of the options can be the same. Here is my proposal for openvpn config structure:
+## Other important aspects
+
+### Server-Side Scripting
+
+There are multiple way to run scripts on the server, triggered by specific client connections.
+
+### --client-config-dir
+**this is not an actual script, but rather a feature that allows for having custom configuration lines applied when specific client connects.**
+
+The way it works is that **--client-config-dir** specifies a /path/to where you will store the client custom config files. OpenVPN will look in this directory for a file having the same name as the client's X509 common name. If a matching file exists, it will be opened and parsed for client-specific configuration options.  
+If no matching file is found, OpenVPN will instead try to open and parse a default file called "DEFAULT", which may be provided but is not required
+The following options are legal in a client-specific context: --push, --push-reset, --push-remove, --iroute, --ifconfig-push, --vlan-pvid and --config.
+
+
+
+--up
+Executed after TCP/UDP socket bind and TUN/TAP open.
+
+--client-connect cmd
+Executed in --mode server mode immediately after client authentication.
+The command is passed the common name and IP address of the just-authenticated client as environmental variables (see environmental variable section below). The command is also passed the pathname of a freshly created temporary file as the last argument (after any arguments specified in cmd ), to be used by the command to pass dynamically generated config file directives back to OpenVPN.
+
+--auth-user-pass-verify cmd method
+Executed in --mode server mode on new client connections, when the client is still untrusted.
+Require the client to provide a username/password (possibly in addition to a client certificate) for authentication.
+method can be via-env, in which case **username** and **password** environment variables will be passed to cmd script, 
+or method can be via-file, in which case OpenVPN will write the username and password to the first two lines of a temporary file. 
+The filename will be passed as an argument to cmd, and the file will be automatically deleted by OpenVPN after the script returns. 
+
+Script environment variables:
+
+common-name
+foreign_option_{n}
+dev
+
+
+## Here is my proposal for openvpn config structure:
 
 
 ### Service Internals
@@ -55,8 +90,6 @@ Other than the server roles, most of the options can be the same. Here is my pro
 - **user** *user_name*; after starting the process drop to user_name privilege.
 - **group** *group_name*; after starting the process drop to group_name privilege.
 - **nice** *-0+* ;*negative values give higher priority, while positive values give lower priority to the ovpn process*.
-- **status** *file n*; write operational status to file every n seconds.
-- **status-version** *1|2|3* ; higher numbers give more verbose status.
 - **writepid** *file*; Write OpenVPN's main process ID to file. 
 - **chroot** */path/to/dir*; use a chroot setup for a highly secure setup.
 - **persist-tun**; Don't close and reopen TUN/TAP device or run up/down scripts across SIGUSR1 or --ping-restart restarts.
@@ -71,6 +104,8 @@ Other than the server roles, most of the options can be the same. Here is my pro
 - **log-append** *file*; the only difference from log is that existing file will not be trunkated
 - **mute** *n*; Log at most n consecutive messages in the same category. This is useful to limit repetitive logging of similar message types.
 - **verb** *n*; n can take values from 0(no output) to 11(debug)
+- **status** *file n*; write operational status to file every n seconds.
+- **status-version** *1|2|3* ; higher numbers give more verbose status.
 
 
 ### Protocol Options
@@ -102,7 +137,7 @@ Other than the server roles, most of the options can be the same. Here is my pro
     > verify-x509-name Server- name-prefix
 - **remote-cert-tls** *{server | client}* - check the key usage of the certificate
 
-### Network Configuration
+### Outer Network Configuration
 
 - **local {IP}** - If specified, OpenVPN will bind to this address only. If unspecified, OpenVPN will bind to all interfaces. 
 - **remote** *{IP [Port] [Proto]}* - The remote end OpenVPN
@@ -118,14 +153,25 @@ Other than the server roles, most of the options can be the same. Here is my pro
 - **ping-restart** *{seconds}*; Similar to --ping-exit, but trigger a SIGUSR1 restart after n seconds pass without reception of a ping or other packet from remote.
 - **inactive** *args*; exit after n seconds of inactivity on the tun/tap device
 
-### Tunnel Interface Configuration
+### Inner Network Configuration
 
 - **mode {server | p2p}** , p2p being the default and working as a site to site VPN
+- **topology {subnet | net30 | p2p}** - This refers to layer3/IP topology, and net30 and p2p are not used so much lately. 
+>Note: Using *--topology subnet* changes the interpretation of the arguments of *--ifconfig* to mean "address netmask", and no longer "*localIP remoteIP*".
 - **dev {tunX | tapX}** - Specify the name of an interface that will be created by openvpn. Use tun for L3 tunneling and tap for bridge VPN
 - **dev-type {tun | tap}** - Use this option only if the device names above are not starting with tun or tap.
 - **dev-node {/dev/net/node_name}** - Explicitly set the device node rather than using /dev/net/tun. On Linux, tun/tap devices are created by accessing /dev/net/tun
 >If OpenVPN cannot figure out whether node is a TUN or TAP device based on the name, you should also specify *--dev-type tun* or *--dev-type tap*.  
 >On Windows systems, select the TAP-Win32 adapter which is named node in the Network Connections Control Panel or the raw GUID of the adapter enclosed by braces. The *--show-adapters* option under Windows can also be used to enumerate all available TAP-Win32 adapters and will show both the network connections control panel name and the GUID for each TAP-Win32 adapter.
+- **ifconfig l rn** - Set TUN/TAP adapter parameters. It requires the IP address of the local VPN endpoint. For TUN devices in point-to-point mode, the next argument must be the VPN IP address of the remote VPN endpoint.
+- **iroute {network [netmask]}** - generate an internal route to specific client; this directive need to be used with a client instance.
+- **route {network/IP [netmask] [gateway] [metric]}** - Add route to routing table after connection is established. Multiple routes can be specified. 
+- **route-gateway {gwIP|dhcp}** - Specify a default gateway gw for use with *route*.
+- **redirect-gateway {flags...}** - Automatically execute routing commands to cause all outgoing IP traffic to be redirected over the VPN. This is a client-side option. 
+1. Create a static route for the --remote address which forwards to the pre-existing default gateway. 
+2. Delete the default gateway route.
+3. Set the new default gateway to be the VPN endpoint address (derived either from --route-gateway or the second parameter to --ifconfig when --dev tun is specified).
+Option flags: *local, autolocal, def1, bypass-dns, bypass-dhcp, block-local*
 - **link-mtu**
 - **tun-mtu** -  OpenVPN requires that packets on the control or data channels be sent unfragmented.
 - **fragment {max}**
@@ -158,8 +204,6 @@ Other than the server roles, most of the options can be the same. Here is my pro
 
 - **server {ip netmask [nopol]}** - a helper directive that will automatically configure *mode server* and *ifconfig-pool* 
 - **server-bridge {gateway netmask pool-start-IP pool-end-IP}**- a helper directive similar to *--server*, which is designed to simplify the configuration of OpenVPN's server mode in ethernet bridging configurations.
-- **topology {subnet | net30 | p2p}** - This refers to layer3/IP topology, and net30 and p2p are not used so much lately. 
->Note: Using *--topology subnet* changes the interpretation of the arguments of *--ifconfig* to mean "address netmask", and no longer "*localIP remoteIP*".
 - **auth-user-pass-optional** ; allow connection by clients that do not specify a username/password
 - **disable** ; associate with specific client instance to disable client
 - **ifconfig {l rn}** - l is the IP address of the local VPN endpoint. If topology is subnet then rn configures the mask, otherways if topology is p2p or net30, rn represents the peer IP address
@@ -167,22 +211,29 @@ Other than the server roles, most of the options can be the same. Here is my pro
 - **ifconfig-pool-persist {file [seconds]}** - Persist/unpersist ifconfig-pool data to file, at seconds intervals (default=600)
 - **push {option}** - push specific configurations to the client. Client has to use *--pull* or *--client*, to be able to accept those
 >push options: route, route-gateway, redirect-gateway, ping, ping-exit, ping-restart, auth-token, persist-key, persist-tun, comp-lzo
->dns, topology 
+>dns, dhcp-option, topology 
 - **ifconfig-push {local remote-netmask [alias]}** - Push virtual IP endpoints for client tunnel, overriding the *--ifconfig-pool* dynamic allocation.
 >The parameters local and remote-netmask are set according to the *--ifconfig* directive which you want to execute on the client machine to configure the remote end of the tunnel. 
 >Note that the parameters local and remote-netmask are from the perspective of the client, not the server.  
 >This option must be associated with a specific client instance, which means that it must be specified either in a client instance config file using *--client-config-dir* or dynamically generated using a *--client-connect script*.   
-- **iroute {network [netmask]}** - generate an internal route to specific client; this directive need to be used with a client instance.
-- **route {network/IP [netmask] [gateway] [metric]}** - Add route to routing table after connection is established. Multiple routes can be specified. 
-- **route-gateway {gwIP|dhcp}** - Specify a default gateway gw for use with *route*.
-- **redirect-gateway {flags...}** - Automatically execute routing commands to cause all outgoing IP traffic to be redirected over the VPN. This is a client-side option. 
-1. Create a static route for the --remote address which forwards to the pre-existing default gateway. 
-2. Delete the default gateway route.
-3. Set the new default gateway to be the VPN endpoint address (derived either from --route-gateway or the second parameter to --ifconfig when --dev tun is specified).
-Option flags: *local, autolocal, def1, bypass-dns, bypass-dhcp, block-local*
 - **client-config-dir {/path/to/dir}**
 - **client-to-client** -  This flag tells OpenVPN to internally route client-to-client traffic rather than pushing all client-originating traffic to the TUN/TAP interface.
+- duplicate-cn
+--ccd-exclusive
+--client-to-client
 
+
+### Scripting
+
+- **script-security-level**
+- **client-connect cmd**
+- **client-disconnect cmd**
+- **up**
+- **down**
+
+- common-name
+- dev
+- foreign_option_{n}
 
 ### Commands
 
