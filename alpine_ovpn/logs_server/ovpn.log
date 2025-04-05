@@ -22,3 +22,10 @@
 2025-04-05 15:16:18 us=249055 MULTI: multi_init called, r=256 v=256
 2025-04-05 15:16:18 us=249109 IFCONFIG POOL IPv4: base=10.210.1.2 size=253
 2025-04-05 15:16:18 us=249160 Initialization Sequence Completed
+2025-04-05 16:59:45 us=135615 event_wait : Interrupted system call (fd=-1,code=4)
+2025-04-05 16:59:45 us=136190 TCP/UDP: Closing socket
+2025-04-05 16:59:45 us=136358 Closing TUN/TAP interface
+2025-04-05 16:59:45 us=136477 /sbin/ip addr del dev tun10 10.210.1.1/24
+RTNETLINK answers: Operation not permitted
+2025-04-05 16:59:45 us=138528 Linux ip addr del failed: external program exited with error status: 2
+2025-04-05 16:59:45 us=161528 SIGTERM[hard,] received, process exiting

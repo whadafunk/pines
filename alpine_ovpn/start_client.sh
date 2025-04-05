@@ -9,8 +9,7 @@ docker container run -it \
 	--user root \
 	--cap-add=NET_ADMIN \
 	--env ovp_mode="client-tun" \
-	--mount type=bind,source=$(pwd)/log_client,target=/var/log/ \
-	ovpn_test "--remote ovpn_server 1194 udp" "--data-ciphers-fallback BF-CBC"
-#	routerology/ovpn:latest
+	--mount type=bind,source=$(pwd)/logs_client,target=/var/log/ \
+	routerology/ovpn "--remote ovpn_server 1194 udp" "--data-ciphers-fallback BF-CBC"
 	
 

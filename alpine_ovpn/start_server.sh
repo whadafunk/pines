@@ -10,7 +10,4 @@ docker container run -it \
 	--cap-add=NET_ADMIN \
 	--env ovp_mode="server-tun" \
 	--mount type=bind,source=$(pwd)/logs_server,target=/var/log/ \
-	ovpn_test "--status /var/logs_server/ovpn.status"
-#	routerology/ovpn:latest
-	
-
+	routerology/ovpn "--status /var/logs_server/ovpn.status"
