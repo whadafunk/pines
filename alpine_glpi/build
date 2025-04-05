@@ -1,5 +1,6 @@
 #!/bin/bash
 
-docker image buildx build --no-cache -t routerology/glpi:10.0.17 --platform linux/amd64,linux/arm64 .
-docker image tag routerology/glpi:10.0.17 routerology/glpi:latest
-docker image push  --all-tags routerology/glpi
+docker buildx build --push -t routerology/glpi:10.0.17 --platform linux/amd64,linux/arm64 .
+docker buildx build --push -t routerology/glpi:latest --platform linux/amd64,linux/arm64 .
+#docker image tag routerology/glpi:10.0.17 routerology/glpi:latest
+#docker image push  --all-tags routerology/glpi

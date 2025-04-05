@@ -1,5 +1,4 @@
-FROM alpine:3.19
-MAINTAINER gri.daniel@gmail.com
+FROM alpine:3.21
 LABEL my_name="daniel grigore"
 LABEL my_youtube="https://www.youtube.com/@routerologyblog1111"
 
@@ -109,6 +108,7 @@ RUN apk update && \
 	ca-certificates \
 	iproute2 \
 	wget \
+	samba-client \
 	shadow \
  	&& rm -rf /var/lib/apt/lists/* 
 

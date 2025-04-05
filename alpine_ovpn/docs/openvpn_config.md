@@ -1,33 +1,39 @@
 # OpenVPN Configuration
 
+Before anything, the official documentation pages of OpenVPN are very helpful, especially the referrence manual
 
-## Overview
+- [OpenVPN Referrence Manual 2.4](https://openvpn.net/community-resources/reference-manual-for-openvpn-2-4/)
+- [OpenVPN Referrence Manual 2.6](https://openvpn.net/community-resources/reference-manual-for-openvpn-2-6/)
 
-When dealing with openvpn, first thing you need to think of, are the various modes in which you can run it, which can be server, client and peer. 
-Traditionally OpenVPN was running only in peer mode for site2site tunnels, but later versions added the server mode, which basically means that one openvpn process, can accept multiple connections from clients, and has some possibilities to manage those clients (ip assignment, authentication, routing, pushing other config options). This is legitimate because there can be multiple sessions on a destination port, as long as the source is different.  
-There is a config parameter called mode which sets mode to server or p2p. *I think (not sure) that p2p works for both client and peer roles.* 
+## Overview of mode and topology
+
+When dealing with openvpn, one important thing you need to think of, are the various modes in which you can run it, which can be **server**, **client** and **peer**. 
+Traditionally OpenVPN was running only in peer mode for **site2site** tunnels, but later versions added the server mode, which basically means that one openvpn process,
+ can accept multiple connections from clients, and has some possibilities to manage those clients (ip assignment, authentication, routing, pushing other config options). 
+This is legitimate from network transport layer perspective because there can be multiple sessions on a destination port, as long as the source is different.  
+There is a config parameter called **mode** which sets openvpn operation mode to server or p2p. *I think (not sure) that p2p works for both client and peer roles.* 
 Also very important to think about the topology, which basically states how the local tun interface will be configured; this topology can also be pushed by the server,  
 but is usually included in the server directive together with ifconfig and ifconfig-pool.
 
 There are three topologies:
 
-- net30 (deprecated)
-- p2p (configures local and peer address on point to point interface; not available for windows)
-- subnet (configures normal broadcast interface address; compatible with all OS)
+- **net30** (deprecated)
+- **p2p** (configures local and peer address on point to point interface; not available for windows)
+- **subnet** (configures normal broadcast interface address; compatible with all OS)
 
 Also, very important to remember that the topology needs to be the same on both peers of the tunnel, and in server client scenarios,  
-is custommary to push the topology from the server to the client.
+Most of the times we do not think of this aspect, because is custommary to automaticaly push the topology from the server to the client.
 
-Let's see a couple of points for each of this roles:
+Let's see a couple of points for each of the openVPN roles:
 
 ### Server Role
 
-- mode needs to be server
-- tls-mode (allthough can be otherways), it makes sense to use tls-mode = server
+- **mode** needs to be server
+- **tls-mode** (allthough can be otherways), it makes sense to use **tls-mode = server**
 - the ip address pool to be assigned to clients
 - the pushed options (dns, dhcp-options, routes, default-gateway,topology)
 - client-config-dir;  this can be used to set options for both server and client (like pushed options or ifconfig-push)
-- normally the pool and ifconfig-push(if needed), are configured automatically when using the **server** helper directive
+- normally the **pool** and **ifconfig-push**(if needed), are configured automatically when using the **server** helper directive
 - configure authentication scripts or plugins
 
 ### Client Role
@@ -46,38 +52,39 @@ Let's see a couple of points for each of this roles:
 
 ## Other important aspects
 
-### Server-Side Scripting
 
-There are multiple way to run scripts on the server, triggered by specific client connections.
+Have a clear picture about how things are falling into place especially with routing client networks, pushing client specific configs, and running scripts and configuration snippets
+I would say, pay special attention to the following commands, and be sure you understand them fully:
 
-### --client-config-dir
-**this is not an actual script, but rather a feature that allows for having custom configuration lines applied when specific client connects.**
+--client-config-dir
+--client-connect
+--push
+--ifconfig-push
+--ifconfig
+--route *network/ip [netmask] [gw] [metric]*
+--iroute *network [netmask]*
+--route-gateway *[gateway | dhcp]*
+--redirect-gateway *[local, def1, bypass-dns, block-local]*
 
-The way it works is that **--client-config-dir** specifies a /path/to where you will store the client custom config files. OpenVPN will look in this directory for a file having the same name as the client's X509 common name. If a matching file exists, it will be opened and parsed for client-specific configuration options.  
-If no matching file is found, OpenVPN will instead try to open and parse a default file called "DEFAULT", which may be provided but is not required
-The following options are legal in a client-specific context: --push, --push-reset, --push-remove, --iroute, --ifconfig-push, --vlan-pvid and --config.
+The routing scenarios you might encounter are:
+
+- routing client network on the server sides and maybe to other client 
+- routing server networks on the client side
+
+Understand the implied gateway with **route** and **redirect-gateway**.
+The official documentation says that is either the argument of **route-gateway**, or the second argument to **ifconfig**, and understanding this ifconfig is key, because most of the times we do not use ifconfig in server configuration.
+It is automatically configured by virtute of the helper directivtive **server** which configs ifconfig-pool, ifconfig and mode server.
+There also the case where route and redirect-gateway are pushed to the client, and the next-hop that the gateway understand as implied it depends on the topology. If the topology is p2p or net30 then it will use the peer ip address, but if the topology is subnet, then route-gateway should be configured on the client or pushed by the server; or you push the route with included next-hop from the begining.
+
+### DNS Configuration
 
 
+There are two methods to push these kind of client settings (dns servers, domainname, dnssearch, etc)
+One of the methods is using **dhcp-option** configuration option, which will work on windows clients by default, but for linux, the pushed options will be availble as environment variables **foreign_option_{n}** in the **up script**
 
---up
-Executed after TCP/UDP socket bind and TUN/TAP open.
-
---client-connect cmd
-Executed in --mode server mode immediately after client authentication.
-The command is passed the common name and IP address of the just-authenticated client as environmental variables (see environmental variable section below). The command is also passed the pathname of a freshly created temporary file as the last argument (after any arguments specified in cmd ), to be used by the command to pass dynamically generated config file directives back to OpenVPN.
-
---auth-user-pass-verify cmd method
-Executed in --mode server mode on new client connections, when the client is still untrusted.
-Require the client to provide a username/password (possibly in addition to a client certificate) for authentication.
-method can be via-env, in which case **username** and **password** environment variables will be passed to cmd script, 
-or method can be via-file, in which case OpenVPN will write the username and password to the first two lines of a temporary file. 
-The filename will be passed as an argument to cmd, and the file will be automatically deleted by OpenVPN after the script returns. 
-
-Script environment variables:
-
-common-name
-foreign_option_{n}
-dev
+The second method is to use **--dns** option. The **--dns** option will eventually obsolete the **--dhcp-option** directive. 
+Until then it will replace configuration at the places **--dhcp-option** puts it, so that **--dns** overrides **--dhcp-option**. 
+Thus, **--dns** can be used today to migrate from **--dhcp-option**.
 
 
 ## Here is my proposal for openvpn config structure:
@@ -112,10 +119,10 @@ dev
 
 - **allow-compression** *asym | no | yes*; compression is not encouraged, that's why no is the default option
 - **compress {algorithm}** - algorithm can be "lzo", or "lz4"; compression is not recommended
-- **data-ciphers** *cipher-list*; use this one if you want to specify encryption ciphers in tls mode
+- **data-ciphers** *cipher-list*; use this one if you want to specify encryption ciphers in tls mode; is the modern option that replaces cipher
 - **auth {alg}** - alg is one of: MD5, SHA1, RSA-SHA1, DSA-SHA1, RSA-SHA256, SHA256, SHA384, SHA512
 - **cipher {alg}** - the default is BF-CBC, but is legacy. AES-128-CBC, AES-128-CFB, AES-256-GCM, openvpn --show-ciphers 
-- **ncp-ciphers {cipher_list}** - restrict the automatically negotiated ciphers to the specified list; "AES-128-CBC:AES-256-GCM"
+- **ncp-cipher-list {cipher_list}** - restrict the automatically negotiated ciphers to the specified list; "AES-128-CBC:AES-256-GCM"
 
 
 ### TLS Configuration
@@ -183,6 +190,7 @@ Option flags: *local, autolocal, def1, bypass-dns, bypass-dhcp, block-local*
 - **auth-user-pass**; Authenticate with server using username/password.
 - **auth-retry** [none|nointeract|interact]; retry user/password;
 - **client** ;A helper directive designed to simplify the configuration of OpenVPN's client mode. 
+	this implies config options:  pull and tls-client
 - **client-nat** *snat 192.168.0.0/255.255.0.0*; local view of a resource from the client perspective
 - **client-nat** *dnat 10.64.0.0/255.255.0.0*; remote view from the server perspective.
 - **connect-retry** *n max*; wait n seconds between connection attempts
@@ -209,6 +217,7 @@ Option flags: *local, autolocal, def1, bypass-dns, bypass-dhcp, block-local*
 - **ifconfig {l rn}** - l is the IP address of the local VPN endpoint. If topology is subnet then rn configures the mask, otherways if topology is p2p or net30, rn represents the peer IP address
 - **ifconfig-pool {start_IP end_IP [netmask]}** -  Set aside a pool of subnets to be dynamically allocated to connecting clients.
 - **ifconfig-pool-persist {file [seconds]}** - Persist/unpersist ifconfig-pool data to file, at seconds intervals (default=600)
+- **duplicate-cn** - Allow multiple clients with the same common name to concurrently connect.
 - **push {option}** - push specific configurations to the client. Client has to use *--pull* or *--client*, to be able to accept those
 >push options: route, route-gateway, redirect-gateway, ping, ping-exit, ping-restart, auth-token, persist-key, persist-tun, comp-lzo
 >dns, dhcp-option, topology 
@@ -225,15 +234,40 @@ Option flags: *local, autolocal, def1, bypass-dns, bypass-dhcp, block-local*
 
 ### Scripting
 
-- **script-security-level**
-- **client-connect cmd**
-- **client-disconnect cmd**
-- **up**
-- **down**
+There are multiple way to run scripts on the server, triggered at different stages of the connection:
 
-- common-name
-- dev
-- foreign_option_{n}
+### --client-config-dir
+**this is not an actual script, but rather a feature that allows for having custom configuration lines applied when specific client connects.**
+
+The way it works is that **--client-config-dir** specifies a /path/to where you will store the client custom config files. 
+OpenVPN will look in this directory for a file having the same name as the client's X509 common name. If a matching file exists, it will be opened and parsed for client-specific configuration options.  
+If no matching file is found, OpenVPN will instead try to open and parse a default file called "DEFAULT", which may be provided but is not required.
+The following options are legal in a client-specific context: **--push, --push-reset, --push-remove, --iroute, --ifconfig-push, --vlan-pvid and --config**.
+
+#### Connection stages
+
+**up**
+Executed after TCP/UDP socket bind and TUN/TAP open. Used usually to configure dns on the client, or routing
+
+--client-connect cmd
+Executed in --mode server mode immediately after client authentication.
+The command is passed the common name and IP address of the just-authenticated client as environmental variables (see environmental variable section below). The command is also passed the pathname of a freshly created temporary file as the last argument (after any arguments specified in cmd ), to be used by the command to pass dynamically generated config file directives back to OpenVPN.
+
+--auth-user-pass-verify cmd method
+Executed in --mode server mode on new client connections, when the client is still untrusted.
+Require the client to provide a username/password (possibly in addition to a client certificate) for authentication.
+method can be via-env, in which case **username** and **password** environment variables will be passed to cmd script, 
+or method can be via-file, in which case OpenVPN will write the username and password to the first two lines of a temporary file. 
+The filename will be passed as an argument to cmd, and the file will be automatically deleted by OpenVPN after the script returns. 
+
+Script environment variables:
+
+common-name
+foreign_option_{n}
+dev
+
+- **script-security-level**
+
 
 ### Commands
 

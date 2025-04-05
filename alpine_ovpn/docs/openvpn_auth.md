@@ -12,18 +12,18 @@ It will direct the OpenVPN client to query the user for a username/password, pas
 
 Script plugins can be used by adding the auth-user-pass-verify directive to the server-side configuration file. For example:
 
-> auth-user-pass-verify auth-pam.pl via-file
+> **auth-user-pass-verify** auth-pam.pl via-file
 
 will use the auth-pam.pl perl script to authenticate the username/password of connecting clients.  
-See the description of auth-user-pass-verify in the manual page for more information.  
+See the description of **auth-user-pass-verify** in the manual page for more information.  
 
 ### Using Shared Object or DLL Plugins
 
 Shared object or DLL plugins are usually compiled C modules which are loaded by the OpenVPN server at run time.  
-For example if you are using an RPM-based OpenVPN package on Linux, the openvpn-auth-pam plugin should be already built.  
+For example if you are using an RPM-based OpenVPN package on Linux, the **openvpn-auth-pam** plugin should be already built.  
 To use it, add this to the server-side config file:
 
-> plugin /usr/share/openvpn/plugin/lib/openvpn-auth-pam.so login
+> **plugin** /usr/share/openvpn/plugin/lib/openvpn-auth-pam.so login
 
 This will tell the OpenVPN server to validate the username/password entered by clients using the login PAM module.  
 

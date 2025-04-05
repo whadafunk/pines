@@ -24,6 +24,7 @@ RUN 	apk update && \
 	apk add \
 		sudo \
 		bash \
+		tar \
 		easy-rsa \
 		ca-certificates \
 		openvpn \
@@ -38,15 +39,21 @@ RUN 	apk update && \
 COPY ca_certs/*.crt /usr/local/share/ca-certificates
 RUN update-ca-certificates
 
+# Set a default config mode
+ENV ovp_mode="server-tun"
+
+# Configure automatic loading of the module for universal tun/tap device driver
 RUN echo "tun" >> /etc/modules-load.d/tun.conf
+# Configure packet forwarding
 RUN echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.d/ipv4.conf
 
-# Copy the tls material
-COPY tls/ /etc/openvpn/tls
+# Copy the openvpn stuff
+COPY pki /root/openvpn/pki
+COPY ccd /root/openvpn/ccd
+COPY config /root/openvpn/config
+COPY scripts /root/openvpn/scripts
+COPY entrypoint.sh /root/entrypoint.sh
 
-
-# Create the ccd directory
-RUN mkdir /etc/openvpn/ccd
 
 
 # It is a good practice to not use the container as root
@@ -57,14 +64,10 @@ RUN	adduser --disabled-password -g admin -G wheel -h /home/admin -s /bin/sh admi
 RUN chown -R ovpn:ovpn /etc/openvpn
 
 # Copy the configuration files
-COPY config_samples/ /etc/openvpn/
-COPY entrypoint.sh /root/entrypoint.sh
 
 #USER admin
 
 WORKDIR /etc/openvpn
 
 # This is the default from the base image, but I have it here just for clarity
-# CMD ["/usr/sbin/openvpn","--config /etc/openvpn/server_tun.conf"]
 ENTRYPOINT ["/bin/bash","/root/entrypoint.sh"]
-

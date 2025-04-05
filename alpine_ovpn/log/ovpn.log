@@ -1,0 +1,24 @@
+2025-04-05 15:16:18 Note: Treating option '--ncp-ciphers' as  '--data-ciphers' (renamed in OpenVPN 2.5).
+2025-04-05 15:16:18 us=243754 Note: --cipher is not set. OpenVPN versions before 2.5 defaulted to BF-CBC as fallback when cipher negotiation failed in this case. If you need this fallback please add '--data-ciphers-fallback BF-CBC' to your configuration and/or add BF-CBC to --data-ciphers.
+2025-04-05 15:16:18 us=244641 Current Parameter Settings:
+2025-04-05 15:16:18 us=244689 NOTE: --mute triggered...
+2025-04-05 15:16:18 us=244731 252 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-05 15:16:18 us=244768 OpenVPN 2.6.12 aarch64-alpine-linux-musl [SSL (OpenSSL)] [LZO] [LZ4] [EPOLL] [MH/PKTINFO] [AEAD]
+2025-04-05 15:16:18 us=244806 library versions: OpenSSL 3.3.3 11 Feb 2025, LZO 2.10
+2025-04-05 15:16:18 us=246028 Diffie-Hellman initialized with 2048 bit key
+2025-04-05 15:16:18 us=246531 TLS-Auth MTU parms [ mss_fix:0 max_frag:0 tun_mtu:1250 tun_max_mtu:0 headroom:126 payload:1600 tailroom:126 ET:0 ]
+2025-04-05 15:16:18 us=246757 TUN/TAP device tun10 opened
+2025-04-05 15:16:18 us=246792 do_ifconfig, ipv4=1, ipv6=0
+2025-04-05 15:16:18 us=246828 /sbin/ip link set dev tun10 up mtu 1500
+2025-04-05 15:16:18 us=247649 /sbin/ip link set dev tun10 up
+2025-04-05 15:16:18 us=248139 /sbin/ip addr add dev tun10 10.210.1.1/24
+2025-04-05 15:16:18 us=248733 Data Channel MTU parms [ mss_fix:0 max_frag:0 tun_mtu:1500 tun_max_mtu:1600 headroom:136 payload:1768 tailroom:562 ET:0 ]
+2025-04-05 15:16:18 us=248795 Could not determine IPv4/IPv6 protocol. Using AF_INET
+2025-04-05 15:16:18 us=248845 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2025-04-05 15:16:18 us=248891 UDPv4 link local (bound): [AF_INET][undef]:1194
+2025-04-05 15:16:18 us=248925 UDPv4 link remote: [AF_UNSPEC]
+2025-04-05 15:16:18 us=248980 GID set to ovpn
+2025-04-05 15:16:18 us=249022 UID set to ovpn
+2025-04-05 15:16:18 us=249055 MULTI: multi_init called, r=256 v=256
+2025-04-05 15:16:18 us=249109 IFCONFIG POOL IPv4: base=10.210.1.2 size=253
+2025-04-05 15:16:18 us=249160 Initialization Sequence Completed
