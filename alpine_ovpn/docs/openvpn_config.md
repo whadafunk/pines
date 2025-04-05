@@ -7,10 +7,12 @@ Before anything, the official documentation pages of OpenVPN are very helpful, e
 
 ## Overview of mode and topology
 
-When dealing with openvpn, one important thing you need to think of, are the various modes in which you can run it, which can be **server**, **client** and **peer**. 
+When dealing with openvpn, one important thing you need to think of, are the various modes in which you can run it, which can be **server**, **client** and **peer**.
+ 
 Traditionally OpenVPN was running only in peer mode for **site2site** tunnels, but later versions added the server mode, which basically means that one openvpn process,
  can accept multiple connections from clients, and has some possibilities to manage those clients (ip assignment, authentication, routing, pushing other config options). 
-This is legitimate from network transport layer perspective because there can be multiple sessions on a destination port, as long as the source is different.  
+This is legitimate from network transport layer perspective because there can be multiple sessions on a destination port, as long as the source is different.
+  
 There is a config parameter called **mode** which sets openvpn operation mode to server or p2p. *I think (not sure) that p2p works for both client and peer roles.* 
 Also very important to think about the topology, which basically states how the local tun interface will be configured; this topology can also be pushed by the server,  
 but is usually included in the server directive together with ifconfig and ifconfig-pool.
@@ -33,13 +35,12 @@ Let's see a couple of points for each of the openVPN roles:
 - the ip address pool to be assigned to clients
 - the pushed options (dns, dhcp-options, routes, default-gateway,topology)
 - client-config-dir;  this can be used to set options for both server and client (like pushed options or ifconfig-push)
-- normally the **pool** and **ifconfig-push**(if needed), are configured automatically when using the **server** helper directive
+- normally the **ifconfig-pool** and **ifconfig-push**(if needed), are configured automatically when using the **server** helper directive
 - configure authentication scripts or plugins
 
 ### Client Role
 
 - mode needs to be p2p; better leave it to default
-- tls-mode makes sense to be client
 - specify pull so the client accepts pushed parameters
 - specify server address with remote; specify ha remote parameters if that's the case
 
@@ -56,28 +57,27 @@ Let's see a couple of points for each of the openVPN roles:
 Have a clear picture about how things are falling into place especially with routing client networks, pushing client specific configs, and running scripts and configuration snippets
 I would say, pay special attention to the following commands, and be sure you understand them fully:
 
---client-config-dir
---client-connect
---push
---ifconfig-push
---ifconfig
---route *network/ip [netmask] [gw] [metric]*
---iroute *network [netmask]*
---route-gateway *[gateway | dhcp]*
---redirect-gateway *[local, def1, bypass-dns, block-local]*
+- --client-config-dir
+- --client-connect
+- --push
+- --ifconfig-push
+- --ifconfig
+- --route *network/ip [netmask] [gw] [metric]*
+- --iroute *network [netmask]*
+- --route-gateway *[gateway | dhcp]*
+- --redirect-gateway *[local, def1, bypass-dns, block-local]*
 
 The routing scenarios you might encounter are:
 
-- routing client network on the server sides and maybe to other client 
-- routing server networks on the client side
+- routing client network on the server sides and maybe to other clients - *needs to be triggered by specific client connectivity and needs both route and iroute*
+- routing server networks on the client side - *just by pushing route or redirect-gateway*
 
-Understand the implied gateway with **route** and **redirect-gateway**.
+Understand the implied gateway value with **route** and **redirect-gateway**.
 The official documentation says that is either the argument of **route-gateway**, or the second argument to **ifconfig**, and understanding this ifconfig is key, because most of the times we do not use ifconfig in server configuration.
 It is automatically configured by virtute of the helper directivtive **server** which configs ifconfig-pool, ifconfig and mode server.
-There also the case where route and redirect-gateway are pushed to the client, and the next-hop that the gateway understand as implied it depends on the topology. If the topology is p2p or net30 then it will use the peer ip address, but if the topology is subnet, then route-gateway should be configured on the client or pushed by the server; or you push the route with included next-hop from the begining.
+There is also the case where route and redirect-gateway are pushed to the client, and the next-hop that the gateway understand as implied it depends on the topology. If the topology is p2p or net30 then it will use the peer ip address, but if the topology is subnet, then route-gateway should be configured on the client or pushed by the server; or you push the route with included next-hop from the begining.
 
 ### DNS Configuration
-
 
 There are two methods to push these kind of client settings (dns servers, domainname, dnssearch, etc)
 One of the methods is using **dhcp-option** configuration option, which will work on windows clients by default, but for linux, the pushed options will be availble as environment variables **foreign_option_{n}** in the **up script**
@@ -186,6 +186,8 @@ Option flags: *local, autolocal, def1, bypass-dns, bypass-dhcp, block-local*
 
 ### Client Options
 
+**The client helper directive, implies tls-client and pull**
+
 - **allow-recursive-routing**; When this option is set, OpenVPN will not drop incoming tun packets with same destination as host.
 - **auth-user-pass**; Authenticate with server using username/password.
 - **auth-retry** [none|nointeract|interact]; retry user/password;
@@ -209,6 +211,8 @@ Option flags: *local, autolocal, def1, bypass-dns, bypass-dhcp, block-local*
 - **tls-client**
 
 ### Server Options
+
+**The helper directive server implies: mode server, tls-mode server, ifconfig, ifconfig-pool, push topology, push route**
 
 - **server {ip netmask [nopol]}** - a helper directive that will automatically configure *mode server* and *ifconfig-pool* 
 - **server-bridge {gateway netmask pool-start-IP pool-end-IP}**- a helper directive similar to *--server*, which is designed to simplify the configuration of OpenVPN's server mode in ethernet bridging configurations.
@@ -285,5 +289,8 @@ dev
 
 
 - **--duplicate-cn** - allow multiple sessions from the same client
+- **--auth-user-pass-verify cmd method** 
+- **--auth-user-pass**
+- **--auth-retry**
 
 
