@@ -1,31 +1,333 @@
-2025-04-05 15:16:18 Note: Treating option '--ncp-ciphers' as  '--data-ciphers' (renamed in OpenVPN 2.5).
-2025-04-05 15:16:18 us=243754 Note: --cipher is not set. OpenVPN versions before 2.5 defaulted to BF-CBC as fallback when cipher negotiation failed in this case. If you need this fallback please add '--data-ciphers-fallback BF-CBC' to your configuration and/or add BF-CBC to --data-ciphers.
-2025-04-05 15:16:18 us=244641 Current Parameter Settings:
-2025-04-05 15:16:18 us=244689 NOTE: --mute triggered...
-2025-04-05 15:16:18 us=244731 252 variation(s) on previous 3 message(s) suppressed by --mute
-2025-04-05 15:16:18 us=244768 OpenVPN 2.6.12 aarch64-alpine-linux-musl [SSL (OpenSSL)] [LZO] [LZ4] [EPOLL] [MH/PKTINFO] [AEAD]
-2025-04-05 15:16:18 us=244806 library versions: OpenSSL 3.3.3 11 Feb 2025, LZO 2.10
-2025-04-05 15:16:18 us=246028 Diffie-Hellman initialized with 2048 bit key
-2025-04-05 15:16:18 us=246531 TLS-Auth MTU parms [ mss_fix:0 max_frag:0 tun_mtu:1250 tun_max_mtu:0 headroom:126 payload:1600 tailroom:126 ET:0 ]
-2025-04-05 15:16:18 us=246757 TUN/TAP device tun10 opened
-2025-04-05 15:16:18 us=246792 do_ifconfig, ipv4=1, ipv6=0
-2025-04-05 15:16:18 us=246828 /sbin/ip link set dev tun10 up mtu 1500
-2025-04-05 15:16:18 us=247649 /sbin/ip link set dev tun10 up
-2025-04-05 15:16:18 us=248139 /sbin/ip addr add dev tun10 10.210.1.1/24
-2025-04-05 15:16:18 us=248733 Data Channel MTU parms [ mss_fix:0 max_frag:0 tun_mtu:1500 tun_max_mtu:1600 headroom:136 payload:1768 tailroom:562 ET:0 ]
-2025-04-05 15:16:18 us=248795 Could not determine IPv4/IPv6 protocol. Using AF_INET
-2025-04-05 15:16:18 us=248845 Socket Buffers: R=[212992->212992] S=[212992->212992]
-2025-04-05 15:16:18 us=248891 UDPv4 link local (bound): [AF_INET][undef]:1194
-2025-04-05 15:16:18 us=248925 UDPv4 link remote: [AF_UNSPEC]
-2025-04-05 15:16:18 us=248980 GID set to ovpn
-2025-04-05 15:16:18 us=249022 UID set to ovpn
-2025-04-05 15:16:18 us=249055 MULTI: multi_init called, r=256 v=256
-2025-04-05 15:16:18 us=249109 IFCONFIG POOL IPv4: base=10.210.1.2 size=253
-2025-04-05 15:16:18 us=249160 Initialization Sequence Completed
-2025-04-05 16:59:45 us=135615 event_wait : Interrupted system call (fd=-1,code=4)
-2025-04-05 16:59:45 us=136190 TCP/UDP: Closing socket
-2025-04-05 16:59:45 us=136358 Closing TUN/TAP interface
-2025-04-05 16:59:45 us=136477 /sbin/ip addr del dev tun10 10.210.1.1/24
+2025-04-05 17:14:37 Note: Treating option '--ncp-ciphers' as  '--data-ciphers' (renamed in OpenVPN 2.5).
+2025-04-05 17:14:37 us=410089 Note: --cipher is not set. OpenVPN versions before 2.5 defaulted to BF-CBC as fallback when cipher negotiation failed in this case. If you need this fallback please add '--data-ciphers-fallback BF-CBC' to your configuration and/or add BF-CBC to --data-ciphers.
+Options error: --status fails with '/var/logs_server/ovpn.status': No such file or directory (errno=2)
+Options error: Please correct these errors.
+Use --help for more information.
+2025-04-05 17:15:40 Note: Treating option '--ncp-ciphers' as  '--data-ciphers' (renamed in OpenVPN 2.5).
+2025-04-05 17:15:40 us=595850 Note: --cipher is not set. OpenVPN versions before 2.5 defaulted to BF-CBC as fallback when cipher negotiation failed in this case. If you need this fallback please add '--data-ciphers-fallback BF-CBC' to your configuration and/or add BF-CBC to --data-ciphers.
+2025-04-05 17:15:40 us=596787 Current Parameter Settings:
+2025-04-05 17:15:40 us=596825 NOTE: --mute triggered...
+2025-04-05 17:15:40 us=596864 252 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-05 17:15:40 us=596909 OpenVPN 2.6.12 aarch64-alpine-linux-musl [SSL (OpenSSL)] [LZO] [LZ4] [EPOLL] [MH/PKTINFO] [AEAD]
+2025-04-05 17:15:40 us=596956 library versions: OpenSSL 3.3.3 11 Feb 2025, LZO 2.10
+2025-04-05 17:15:40 us=598177 Diffie-Hellman initialized with 2048 bit key
+2025-04-05 17:15:40 us=598717 TLS-Auth MTU parms [ mss_fix:0 max_frag:0 tun_mtu:1250 tun_max_mtu:0 headroom:126 payload:1600 tailroom:126 ET:0 ]
+2025-04-05 17:15:40 us=598898 TUN/TAP device tun10 opened
+2025-04-05 17:15:40 us=598935 do_ifconfig, ipv4=1, ipv6=0
+2025-04-05 17:15:40 us=598970 /sbin/ip link set dev tun10 up mtu 1500
+2025-04-05 17:15:40 us=599603 /sbin/ip link set dev tun10 up
+2025-04-05 17:15:40 us=600030 /sbin/ip addr add dev tun10 10.210.1.1/24
+2025-04-05 17:15:40 us=600454 Data Channel MTU parms [ mss_fix:0 max_frag:0 tun_mtu:1500 tun_max_mtu:1600 headroom:136 payload:1768 tailroom:562 ET:0 ]
+2025-04-05 17:15:40 us=600508 Could not determine IPv4/IPv6 protocol. Using AF_INET
+2025-04-05 17:15:40 us=600542 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2025-04-05 17:15:40 us=600581 UDPv4 link local (bound): [AF_INET][undef]:1194
+2025-04-05 17:15:40 us=600611 UDPv4 link remote: [AF_UNSPEC]
+2025-04-05 17:15:40 us=600664 GID set to ovpn
+2025-04-05 17:15:40 us=600705 UID set to ovpn
+2025-04-05 17:15:40 us=600739 MULTI: multi_init called, r=256 v=256
+2025-04-05 17:15:40 us=600790 IFCONFIG POOL IPv4: base=10.210.1.2 size=253
+2025-04-05 17:15:40 us=600857 Initialization Sequence Completed
+2025-04-05 17:16:10 us=353851 event_wait : Interrupted system call (fd=-1,code=4)
+2025-04-05 17:16:10 us=354392 TCP/UDP: Closing socket
+2025-04-05 17:16:10 us=354507 Closing TUN/TAP interface
+2025-04-05 17:16:10 us=354589 /sbin/ip addr del dev tun10 10.210.1.1/24
 RTNETLINK answers: Operation not permitted
-2025-04-05 16:59:45 us=138528 Linux ip addr del failed: external program exited with error status: 2
-2025-04-05 16:59:45 us=161528 SIGTERM[hard,] received, process exiting
+2025-04-05 17:16:10 us=356021 Linux ip addr del failed: external program exited with error status: 2
+2025-04-05 17:16:10 us=374523 SIGTERM[hard,] received, process exiting
+2025-04-05 17:16:29 Note: Treating option '--ncp-ciphers' as  '--data-ciphers' (renamed in OpenVPN 2.5).
+2025-04-05 17:16:29 us=546208 Note: --cipher is not set. OpenVPN versions before 2.5 defaulted to BF-CBC as fallback when cipher negotiation failed in this case. If you need this fallback please add '--data-ciphers-fallback BF-CBC' to your configuration and/or add BF-CBC to --data-ciphers.
+2025-04-05 17:16:29 us=547021 Current Parameter Settings:
+2025-04-05 17:16:29 us=547057 NOTE: --mute triggered...
+2025-04-05 17:16:29 us=547095 252 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-05 17:16:29 us=547129 OpenVPN 2.6.12 aarch64-alpine-linux-musl [SSL (OpenSSL)] [LZO] [LZ4] [EPOLL] [MH/PKTINFO] [AEAD]
+2025-04-05 17:16:29 us=547176 library versions: OpenSSL 3.3.3 11 Feb 2025, LZO 2.10
+2025-04-05 17:16:29 us=548376 Diffie-Hellman initialized with 2048 bit key
+2025-04-05 17:16:29 us=548804 TLS-Auth MTU parms [ mss_fix:0 max_frag:0 tun_mtu:1250 tun_max_mtu:0 headroom:126 payload:1600 tailroom:126 ET:0 ]
+2025-04-05 17:16:29 us=549029 TUN/TAP device tun10 opened
+2025-04-05 17:16:29 us=549066 do_ifconfig, ipv4=1, ipv6=0
+2025-04-05 17:16:29 us=549106 /sbin/ip link set dev tun10 up mtu 1500
+2025-04-05 17:16:29 us=549661 /sbin/ip link set dev tun10 up
+2025-04-05 17:16:29 us=550049 /sbin/ip addr add dev tun10 10.210.1.1/24
+2025-04-05 17:16:29 us=550436 Data Channel MTU parms [ mss_fix:0 max_frag:0 tun_mtu:1500 tun_max_mtu:1600 headroom:136 payload:1768 tailroom:562 ET:0 ]
+2025-04-05 17:16:29 us=550491 Could not determine IPv4/IPv6 protocol. Using AF_INET
+2025-04-05 17:16:29 us=550523 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2025-04-05 17:16:29 us=550558 UDPv4 link local (bound): [AF_INET][undef]:1194
+2025-04-05 17:16:29 us=550586 UDPv4 link remote: [AF_UNSPEC]
+2025-04-05 17:16:29 us=550629 GID set to ovpn
+2025-04-05 17:16:29 us=550668 UID set to ovpn
+2025-04-05 17:16:29 us=550696 MULTI: multi_init called, r=256 v=256
+2025-04-05 17:16:29 us=550733 IFCONFIG POOL IPv4: base=10.210.1.2 size=253
+2025-04-05 17:16:29 us=550777 Initialization Sequence Completed
+2025-04-05 19:20:20 us=957056 Connection Attempt event_wait : Interrupted system call (fd=-1,code=4)
+2025-04-05 19:20:20 us=958538 Connection Attempt TCP/UDP: Closing socket
+2025-04-05 19:20:20 us=958916 Connection Attempt Closing TUN/TAP interface
+2025-04-05 19:20:20 us=959053 Connection Attempt /sbin/ip addr del dev tun10 10.210.1.1/24
+RTNETLINK answers: Operation not permitted
+2025-04-05 19:20:20 us=961668 Connection Attempt Linux ip addr del failed: external program exited with error status: 2
+2025-04-05 19:20:20 us=976485 Connection Attempt SIGTERM[hard,] received, process exiting
+2025-04-05 19:20:46 Note: Treating option '--ncp-ciphers' as  '--data-ciphers' (renamed in OpenVPN 2.5).
+2025-04-05 19:20:46 us=717591 Note: --cipher is not set. OpenVPN versions before 2.5 defaulted to BF-CBC as fallback when cipher negotiation failed in this case. If you need this fallback please add '--data-ciphers-fallback BF-CBC' to your configuration and/or add BF-CBC to --data-ciphers.
+2025-04-05 19:20:46 us=718402 Current Parameter Settings:
+2025-04-05 19:20:46 us=718445 NOTE: --mute triggered...
+2025-04-05 19:20:46 us=718493 252 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-05 19:20:46 us=718530 OpenVPN 2.6.12 aarch64-alpine-linux-musl [SSL (OpenSSL)] [LZO] [LZ4] [EPOLL] [MH/PKTINFO] [AEAD]
+2025-04-05 19:20:46 us=718568 library versions: OpenSSL 3.3.3 11 Feb 2025, LZO 2.10
+2025-04-05 19:20:46 us=719721 Diffie-Hellman initialized with 2048 bit key
+2025-04-05 19:20:46 us=720168 TLS-Auth MTU parms [ mss_fix:0 max_frag:0 tun_mtu:1250 tun_max_mtu:0 headroom:126 payload:1600 tailroom:126 ET:0 ]
+2025-04-05 19:20:46 us=720388 TUN/TAP device tun10 opened
+2025-04-05 19:20:46 us=720420 do_ifconfig, ipv4=1, ipv6=0
+2025-04-05 19:20:46 us=720453 /sbin/ip link set dev tun10 up mtu 1500
+2025-04-05 19:20:46 us=721058 /sbin/ip link set dev tun10 up
+2025-04-05 19:20:46 us=721729 /sbin/ip addr add dev tun10 10.210.1.1/24
+2025-04-05 19:20:46 us=722112 Data Channel MTU parms [ mss_fix:0 max_frag:0 tun_mtu:1500 tun_max_mtu:1600 headroom:136 payload:1768 tailroom:562 ET:0 ]
+2025-04-05 19:20:46 us=722168 Could not determine IPv4/IPv6 protocol. Using AF_INET
+2025-04-05 19:20:46 us=722202 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2025-04-05 19:20:46 us=722238 UDPv4 link local (bound): [AF_INET][undef]:1194
+2025-04-05 19:20:46 us=722279 UDPv4 link remote: [AF_UNSPEC]
+2025-04-05 19:20:46 us=722325 GID set to ovpn
+2025-04-05 19:20:46 us=722376 UID set to ovpn
+2025-04-05 19:20:46 us=722416 MULTI: multi_init called, r=256 v=256
+2025-04-05 19:20:46 us=722460 IFCONFIG POOL IPv4: base=10.210.1.2 size=253
+2025-04-05 19:20:46 us=722510 Initialization Sequence Completed
+2025-04-06 16:09:46 us=416629 event_wait : Interrupted system call (fd=-1,code=4)
+2025-04-06 16:09:46 us=418896 TCP/UDP: Closing socket
+2025-04-06 16:09:46 us=419156 Closing TUN/TAP interface
+2025-04-06 16:09:46 us=419261 /sbin/ip addr del dev tun10 10.210.1.1/24
+RTNETLINK answers: Operation not permitted
+2025-04-06 16:09:46 us=421683 Linux ip addr del failed: external program exited with error status: 2
+2025-04-06 16:09:46 us=439374 SIGTERM[hard,] received, process exiting
+2025-04-06 16:10:38 Note: Treating option '--ncp-ciphers' as  '--data-ciphers' (renamed in OpenVPN 2.5).
+2025-04-06 16:10:38 us=206884 Note: --cipher is not set. OpenVPN versions before 2.5 defaulted to BF-CBC as fallback when cipher negotiation failed in this case. If you need this fallback please add '--data-ciphers-fallback BF-CBC' to your configuration and/or add BF-CBC to --data-ciphers.
+2025-04-06 16:10:38 us=207651 Current Parameter Settings:
+2025-04-06 16:10:38 us=207695 NOTE: --mute triggered...
+2025-04-06 16:10:38 us=207735 252 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-06 16:10:38 us=207770 OpenVPN 2.6.12 aarch64-alpine-linux-musl [SSL (OpenSSL)] [LZO] [LZ4] [EPOLL] [MH/PKTINFO] [AEAD]
+2025-04-06 16:10:38 us=207806 library versions: OpenSSL 3.3.3 11 Feb 2025, LZO 2.10
+2025-04-06 16:10:38 us=209099 Diffie-Hellman initialized with 2048 bit key
+2025-04-06 16:10:38 us=209563 TLS-Auth MTU parms [ mss_fix:0 max_frag:0 tun_mtu:1250 tun_max_mtu:0 headroom:126 payload:1600 tailroom:126 ET:0 ]
+2025-04-06 16:10:38 us=209817 TUN/TAP device tun10 opened
+2025-04-06 16:10:38 us=209852 do_ifconfig, ipv4=1, ipv6=0
+2025-04-06 16:10:38 us=209887 /sbin/ip link set dev tun10 up mtu 1500
+2025-04-06 16:10:38 us=210511 /sbin/ip link set dev tun10 up
+2025-04-06 16:10:38 us=210869 /sbin/ip addr add dev tun10 10.210.1.1/24
+2025-04-06 16:10:38 us=211237 Data Channel MTU parms [ mss_fix:0 max_frag:0 tun_mtu:1500 tun_max_mtu:1600 headroom:136 payload:1768 tailroom:562 ET:0 ]
+2025-04-06 16:10:38 us=211285 Could not determine IPv4/IPv6 protocol. Using AF_INET
+2025-04-06 16:10:38 us=211318 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2025-04-06 16:10:38 us=211362 UDPv4 link local (bound): [AF_INET][undef]:1194
+2025-04-06 16:10:38 us=211400 UDPv4 link remote: [AF_UNSPEC]
+2025-04-06 16:10:38 us=211449 GID set to ovpn
+2025-04-06 16:10:38 us=211483 UID set to ovpn
+2025-04-06 16:10:38 us=211513 MULTI: multi_init called, r=256 v=256
+2025-04-06 16:10:38 us=211552 IFCONFIG POOL IPv4: base=10.210.1.2 size=253
+2025-04-06 16:10:38 us=211596 Initialization Sequence Completed
+2025-04-06 16:21:11 us=531684 Connection Attempt event_wait : Interrupted system call (fd=-1,code=4)
+2025-04-06 16:21:11 us=532612 Connection Attempt TCP/UDP: Closing socket
+2025-04-06 16:21:11 us=532911 Connection Attempt Closing TUN/TAP interface
+2025-04-06 16:21:11 us=533298 Connection Attempt /sbin/ip addr del dev tun10 10.210.1.1/24
+RTNETLINK answers: Operation not permitted
+2025-04-06 16:21:11 us=535212 Connection Attempt Linux ip addr del failed: external program exited with error status: 2
+2025-04-06 16:21:11 us=550706 Connection Attempt SIGTERM[hard,] received, process exiting
+2025-04-06 16:22:54 Note: Treating option '--ncp-ciphers' as  '--data-ciphers' (renamed in OpenVPN 2.5).
+2025-04-06 16:22:54 us=659174 Note: --cipher is not set. OpenVPN versions before 2.5 defaulted to BF-CBC as fallback when cipher negotiation failed in this case. If you need this fallback please add '--data-ciphers-fallback BF-CBC' to your configuration and/or add BF-CBC to --data-ciphers.
+2025-04-06 16:22:54 us=659975 Current Parameter Settings:
+2025-04-06 16:22:54 us=660009 NOTE: --mute triggered...
+2025-04-06 16:22:54 us=660049 252 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-06 16:22:54 us=660080 OpenVPN 2.6.12 aarch64-alpine-linux-musl [SSL (OpenSSL)] [LZO] [LZ4] [EPOLL] [MH/PKTINFO] [AEAD]
+2025-04-06 16:22:54 us=660114 library versions: OpenSSL 3.3.3 11 Feb 2025, LZO 2.10
+2025-04-06 16:22:54 us=661323 Diffie-Hellman initialized with 2048 bit key
+2025-04-06 16:22:54 us=661756 TLS-Auth MTU parms [ mss_fix:0 max_frag:0 tun_mtu:1250 tun_max_mtu:0 headroom:126 payload:1600 tailroom:126 ET:0 ]
+2025-04-06 16:22:54 us=661970 TUN/TAP device tun10 opened
+2025-04-06 16:22:54 us=662017 do_ifconfig, ipv4=1, ipv6=0
+2025-04-06 16:22:54 us=662091 /sbin/ip link set dev tun10 up mtu 1500
+2025-04-06 16:22:54 us=662663 /sbin/ip link set dev tun10 up
+2025-04-06 16:22:54 us=663074 /sbin/ip addr add dev tun10 10.210.1.1/24
+2025-04-06 16:22:54 us=663493 Data Channel MTU parms [ mss_fix:0 max_frag:0 tun_mtu:1500 tun_max_mtu:1600 headroom:136 payload:1768 tailroom:562 ET:0 ]
+2025-04-06 16:22:54 us=663544 Could not determine IPv4/IPv6 protocol. Using AF_INET
+2025-04-06 16:22:54 us=663580 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2025-04-06 16:22:54 us=663614 UDPv4 link local (bound): [AF_INET][undef]:1194
+2025-04-06 16:22:54 us=663645 UDPv4 link remote: [AF_UNSPEC]
+2025-04-06 16:22:54 us=663689 GID set to ovpn
+2025-04-06 16:22:54 us=663723 UID set to ovpn
+2025-04-06 16:22:54 us=663751 MULTI: multi_init called, r=256 v=256
+2025-04-06 16:22:54 us=663787 IFCONFIG POOL IPv4: base=10.210.1.2 size=253
+2025-04-06 16:22:54 us=663828 Initialization Sequence Completed
+2025-04-18 12:01:56 Note: Treating option '--ncp-ciphers' as  '--data-ciphers' (renamed in OpenVPN 2.5).
+2025-04-18 12:01:56 us=882898 Note: --cipher is not set. OpenVPN versions before 2.5 defaulted to BF-CBC as fallback when cipher negotiation failed in this case. If you need this fallback please add '--data-ciphers-fallback BF-CBC' to your configuration and/or add BF-CBC to --data-ciphers.
+2025-04-18 12:01:56 us=883719 Current Parameter Settings:
+2025-04-18 12:01:56 us=883751 NOTE: --mute triggered...
+2025-04-18 12:01:56 us=883786 252 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-18 12:01:56 us=883814 OpenVPN 2.6.12 aarch64-alpine-linux-musl [SSL (OpenSSL)] [LZO] [LZ4] [EPOLL] [MH/PKTINFO] [AEAD]
+2025-04-18 12:01:56 us=883868 library versions: OpenSSL 3.3.3 11 Feb 2025, LZO 2.10
+2025-04-18 12:01:56 us=885633 Diffie-Hellman initialized with 2048 bit key
+2025-04-18 12:01:56 us=886565 TLS-Auth MTU parms [ mss_fix:0 max_frag:0 tun_mtu:1250 tun_max_mtu:0 headroom:126 payload:1600 tailroom:126 ET:0 ]
+2025-04-18 12:01:56 us=886733 TUN/TAP device tun10 opened
+2025-04-18 12:01:56 us=886764 do_ifconfig, ipv4=1, ipv6=0
+2025-04-18 12:01:56 us=886796 /sbin/ip link set dev tun10 up mtu 1500
+2025-04-18 12:01:56 us=890795 /sbin/ip link set dev tun10 up
+2025-04-18 12:01:56 us=891166 /sbin/ip addr add dev tun10 10.210.1.1/24
+2025-04-18 12:01:56 us=891496 Data Channel MTU parms [ mss_fix:0 max_frag:0 tun_mtu:1500 tun_max_mtu:1600 headroom:136 payload:1768 tailroom:562 ET:0 ]
+2025-04-18 12:01:56 us=891542 Could not determine IPv4/IPv6 protocol. Using AF_INET
+2025-04-18 12:01:56 us=891584 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2025-04-18 12:01:56 us=891632 UDPv4 link local (bound): [AF_INET][undef]:1194
+2025-04-18 12:01:56 us=891662 UDPv4 link remote: [AF_UNSPEC]
+2025-04-18 12:01:56 us=891703 GID set to ovpn
+2025-04-18 12:01:56 us=891738 UID set to ovpn
+2025-04-18 12:01:56 us=891771 MULTI: multi_init called, r=256 v=256
+2025-04-18 12:01:56 us=891811 IFCONFIG POOL IPv4: base=10.210.1.2 size=253
+2025-04-18 12:01:56 us=891852 Initialization Sequence Completed
+2025-04-18 12:05:09 us=636841 Connection Attempt MULTI: multi_create_instance called
+2025-04-18 12:05:09 us=637011 172.17.0.4:44212 Re-using SSL/TLS context
+2025-04-18 12:05:09 us=637242 172.17.0.4:44212 Control Channel MTU parms [ mss_fix:0 max_frag:0 tun_mtu:1250 tun_max_mtu:0 headroom:126 payload:1600 tailroom:126 ET:0 ]
+2025-04-18 12:05:09 us=637310 172.17.0.4:44212 NOTE: --mute triggered...
+2025-04-18 12:05:09 us=658505 172.17.0.4:44212 1 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-18 12:05:09 us=658565 172.17.0.4:44212 VERIFY OK: depth=1, CN=Routerology-CA
+2025-04-18 12:05:09 us=658725 172.17.0.4:44212 NOTE: --mute triggered...
+2025-04-18 12:05:09 us=660202 172.17.0.4:44212 5 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-18 12:05:09 us=660254 172.17.0.4:44212 peer info: IV_VER=2.6.12
+2025-04-18 12:05:09 us=660321 172.17.0.4:44212 peer info: IV_PLAT=linux
+2025-04-18 12:05:09 us=660392 172.17.0.4:44212 peer info: IV_TCPNL=1
+2025-04-18 12:05:09 us=660461 172.17.0.4:44212 peer info: IV_MTU=1600
+2025-04-18 12:05:09 us=660606 172.17.0.4:44212 peer info: IV_NCP=2
+2025-04-18 12:05:09 us=660674 172.17.0.4:44212 peer info: IV_CIPHERS=AES-256-GCM:AES-128-GCM:CHACHA20-POLY1305:AES-256-CBC:AES-128-CBC
+2025-04-18 12:05:09 us=660755 172.17.0.4:44212 peer info: IV_PROTO=990
+2025-04-18 12:05:09 us=660822 172.17.0.4:44212 peer info: IV_LZO_STUB=1
+2025-04-18 12:05:09 us=660889 172.17.0.4:44212 peer info: IV_COMP_STUB=1
+2025-04-18 12:05:09 us=660959 172.17.0.4:44212 peer info: IV_COMP_STUBv2=1
+2025-04-18 12:05:09 us=661058 172.17.0.4:44212 TLS: move_session: dest=TM_ACTIVE src=TM_INITIAL reinit_src=1
+2025-04-18 12:05:09 us=661135 172.17.0.4:44212 NOTE: --mute triggered...
+2025-04-18 12:05:09 us=670497 172.17.0.4:44212 2 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-18 12:05:09 us=670546 172.17.0.4:44212 [routerology-vpn-client] Peer Connection Initiated with [AF_INET]172.17.0.4:44212
+2025-04-18 12:05:09 us=670626 routerology-vpn-client/172.17.0.4:44212 MULTI_sva: pool returned IPv4=10.210.1.2, IPv6=(Not enabled)
+2025-04-18 12:05:09 us=670715 routerology-vpn-client/172.17.0.4:44212 MULTI: Learn: 10.210.1.2 -> routerology-vpn-client/172.17.0.4:44212
+2025-04-18 12:05:09 us=670768 routerology-vpn-client/172.17.0.4:44212 NOTE: --mute triggered...
+2025-04-18 12:05:09 us=670849 routerology-vpn-client/172.17.0.4:44212 1 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-18 12:05:09 us=670885 routerology-vpn-client/172.17.0.4:44212 Data Channel MTU parms [ mss_fix:1428 max_frag:0 tun_mtu:1500 tun_max_mtu:1600 headroom:136 payload:1768 tailroom:562 ET:0 ]
+2025-04-18 12:05:09 us=670976 routerology-vpn-client/172.17.0.4:44212 Outgoing dynamic tls-crypt: Cipher 'AES-256-CTR' initialized with 256 bit key
+2025-04-18 12:05:09 us=671022 routerology-vpn-client/172.17.0.4:44212 NOTE: --mute triggered...
+2025-04-18 12:05:09 us=671150 routerology-vpn-client/172.17.0.4:44212 5 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-18 12:05:09 us=671196 routerology-vpn-client/172.17.0.4:44212 SENT CONTROL [routerology-vpn-client]: 'PUSH_REPLY,redirect-gateway def1,topology subnet,dns search-domains routerology.ro packets.lab,dns server 1 address 9.9.9.9 1.1.1.1,dns server 1 resolve-domains routerology.ro,dhcp-option DOMAIN routerology.ro,dhcp-option DOMAIN-SEARCH routerology.ro,dhcp-option DNS 1.1.1.1,dhcp-option NTP 1.2.3.4,route-gateway 10.210.1.1,topology subnet,ping 10,ping-restart 60,ifconfig 10.210.1.2 255.255.255.0,peer-id 0,cipher AES-256-GCM,protocol-flags cc-exit tls-ekm dyn-tls-crypt,tun-mtu 1500' (status=1)
+2025-04-18 12:05:10 us=813255 routerology-vpn-client/172.17.0.4:44212 Data Channel: cipher 'AES-256-GCM', peer-id: 0
+2025-04-18 12:05:10 us=813863 routerology-vpn-client/172.17.0.4:44212 NOTE: --mute triggered...
+2025-04-18 12:05:48 us=541899 2 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-18 12:05:48 us=542961 read UDPv4 [ECONNREFUSED]: Connection refused (fd=5,code=111)
+2025-04-18 12:05:58 us=837899 NOTE: --mute triggered...
+2025-04-18 12:07:39 us=217686 routerology-vpn-client/172.17.0.4:44212 8 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-18 12:07:39 us=218186 routerology-vpn-client/172.17.0.4:44212 [routerology-vpn-client] Inactivity timeout (--ping-restart), restarting
+2025-04-18 12:07:39 us=218529 routerology-vpn-client/172.17.0.4:44212 SIGUSR1[soft,ping-restart] received, client-instance restarting
+2025-04-18 12:08:37 us=770968 Connection Attempt MULTI: multi_create_instance called
+2025-04-18 12:08:37 us=771110 172.17.0.4:56817 Re-using SSL/TLS context
+2025-04-18 12:08:37 us=771406 172.17.0.4:56817 Control Channel MTU parms [ mss_fix:0 max_frag:0 tun_mtu:1250 tun_max_mtu:0 headroom:126 payload:1600 tailroom:126 ET:0 ]
+2025-04-18 12:08:37 us=771516 172.17.0.4:56817 NOTE: --mute triggered...
+2025-04-18 12:08:37 us=794828 172.17.0.4:56817 1 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-18 12:08:37 us=794884 172.17.0.4:56817 VERIFY OK: depth=1, CN=Routerology-CA
+2025-04-18 12:08:37 us=795060 172.17.0.4:56817 NOTE: --mute triggered...
+2025-04-18 12:08:37 us=796652 172.17.0.4:56817 5 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-18 12:08:37 us=796700 172.17.0.4:56817 peer info: IV_VER=2.6.12
+2025-04-18 12:08:37 us=796765 172.17.0.4:56817 peer info: IV_PLAT=linux
+2025-04-18 12:08:37 us=796850 172.17.0.4:56817 peer info: IV_TCPNL=1
+2025-04-18 12:08:37 us=796903 172.17.0.4:56817 peer info: IV_MTU=1600
+2025-04-18 12:08:37 us=796988 172.17.0.4:56817 peer info: IV_NCP=2
+2025-04-18 12:08:37 us=797047 172.17.0.4:56817 peer info: IV_CIPHERS=AES-256-GCM:AES-128-GCM:CHACHA20-POLY1305:AES-256-CBC:AES-128-CBC
+2025-04-18 12:08:37 us=797106 172.17.0.4:56817 peer info: IV_PROTO=990
+2025-04-18 12:08:37 us=797168 172.17.0.4:56817 peer info: IV_LZO_STUB=1
+2025-04-18 12:08:37 us=797237 172.17.0.4:56817 peer info: IV_COMP_STUB=1
+2025-04-18 12:08:37 us=797308 172.17.0.4:56817 peer info: IV_COMP_STUBv2=1
+2025-04-18 12:08:37 us=797428 172.17.0.4:56817 TLS: move_session: dest=TM_ACTIVE src=TM_INITIAL reinit_src=1
+2025-04-18 12:08:37 us=797535 172.17.0.4:56817 NOTE: --mute triggered...
+2025-04-18 12:08:37 us=807468 172.17.0.4:56817 2 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-18 12:08:37 us=807514 172.17.0.4:56817 [routerology-vpn-client] Peer Connection Initiated with [AF_INET]172.17.0.4:56817
+2025-04-18 12:08:37 us=807607 routerology-vpn-client/172.17.0.4:56817 MULTI_sva: pool returned IPv4=10.210.1.2, IPv6=(Not enabled)
+2025-04-18 12:08:37 us=807715 routerology-vpn-client/172.17.0.4:56817 MULTI: Learn: 10.210.1.2 -> routerology-vpn-client/172.17.0.4:56817
+2025-04-18 12:08:37 us=807761 routerology-vpn-client/172.17.0.4:56817 NOTE: --mute triggered...
+2025-04-18 12:08:37 us=807845 routerology-vpn-client/172.17.0.4:56817 1 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-18 12:08:37 us=807904 routerology-vpn-client/172.17.0.4:56817 Data Channel MTU parms [ mss_fix:1428 max_frag:0 tun_mtu:1500 tun_max_mtu:1600 headroom:136 payload:1768 tailroom:562 ET:0 ]
+2025-04-18 12:08:37 us=807998 routerology-vpn-client/172.17.0.4:56817 Outgoing dynamic tls-crypt: Cipher 'AES-256-CTR' initialized with 256 bit key
+2025-04-18 12:08:37 us=808049 routerology-vpn-client/172.17.0.4:56817 NOTE: --mute triggered...
+2025-04-18 12:08:37 us=808190 routerology-vpn-client/172.17.0.4:56817 5 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-18 12:08:37 us=808242 routerology-vpn-client/172.17.0.4:56817 SENT CONTROL [routerology-vpn-client]: 'PUSH_REPLY,redirect-gateway def1,topology subnet,dns search-domains routerology.ro packets.lab,dns server 1 address 9.9.9.9 1.1.1.1,dns server 1 resolve-domains routerology.ro,dhcp-option DOMAIN routerology.ro,dhcp-option DOMAIN-SEARCH routerology.ro,dhcp-option DNS 1.1.1.1,dhcp-option NTP 1.2.3.4,route-gateway 10.210.1.1,topology subnet,ping 10,ping-restart 60,ifconfig 10.210.1.2 255.255.255.0,peer-id 0,cipher AES-256-GCM,protocol-flags cc-exit tls-ekm dyn-tls-crypt,tun-mtu 1500' (status=1)
+2025-04-18 12:08:38 us=958735 routerology-vpn-client/172.17.0.4:56817 Data Channel: cipher 'AES-256-GCM', peer-id: 0
+2025-04-18 12:08:38 us=959295 routerology-vpn-client/172.17.0.4:56817 NOTE: --mute triggered...
+2025-04-18 12:08:57 us=334782 2 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-18 12:08:57 us=335312 read UDPv4 [ECONNREFUSED]: Connection refused (fd=5,code=111)
+2025-04-18 12:09:07 us=528694 NOTE: --mute triggered...
+2025-04-18 12:10:49 us=869139 routerology-vpn-client/172.17.0.4:56817 11 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-18 12:10:49 us=869907 routerology-vpn-client/172.17.0.4:56817 [routerology-vpn-client] Inactivity timeout (--ping-restart), restarting
+2025-04-18 12:10:49 us=870237 routerology-vpn-client/172.17.0.4:56817 SIGUSR1[soft,ping-restart] received, client-instance restarting
+2025-04-18 12:13:03 us=915213 Connection Attempt MULTI: multi_create_instance called
+2025-04-18 12:13:03 us=915437 172.17.0.4:52232 Re-using SSL/TLS context
+2025-04-18 12:13:03 us=915660 172.17.0.4:52232 Control Channel MTU parms [ mss_fix:0 max_frag:0 tun_mtu:1250 tun_max_mtu:0 headroom:126 payload:1600 tailroom:126 ET:0 ]
+2025-04-18 12:13:03 us=915827 172.17.0.4:52232 NOTE: --mute triggered...
+2025-04-18 12:13:03 us=935545 172.17.0.4:52232 1 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-18 12:13:03 us=935599 172.17.0.4:52232 VERIFY OK: depth=1, CN=Routerology-CA
+2025-04-18 12:13:03 us=935760 172.17.0.4:52232 NOTE: --mute triggered...
+2025-04-18 12:13:03 us=937274 172.17.0.4:52232 5 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-18 12:13:03 us=937326 172.17.0.4:52232 peer info: IV_VER=2.6.12
+2025-04-18 12:13:03 us=937392 172.17.0.4:52232 peer info: IV_PLAT=linux
+2025-04-18 12:13:03 us=937474 172.17.0.4:52232 peer info: IV_TCPNL=1
+2025-04-18 12:13:03 us=937533 172.17.0.4:52232 peer info: IV_MTU=1600
+2025-04-18 12:13:03 us=937604 172.17.0.4:52232 peer info: IV_NCP=2
+2025-04-18 12:13:03 us=937655 172.17.0.4:52232 peer info: IV_CIPHERS=AES-256-GCM:AES-128-GCM:CHACHA20-POLY1305:AES-256-CBC:AES-128-CBC
+2025-04-18 12:13:03 us=937719 172.17.0.4:52232 peer info: IV_PROTO=990
+2025-04-18 12:13:03 us=937792 172.17.0.4:52232 peer info: IV_LZO_STUB=1
+2025-04-18 12:13:03 us=937863 172.17.0.4:52232 peer info: IV_COMP_STUB=1
+2025-04-18 12:13:03 us=937943 172.17.0.4:52232 peer info: IV_COMP_STUBv2=1
+2025-04-18 12:13:03 us=938053 172.17.0.4:52232 TLS: move_session: dest=TM_ACTIVE src=TM_INITIAL reinit_src=1
+2025-04-18 12:13:03 us=938148 172.17.0.4:52232 NOTE: --mute triggered...
+2025-04-18 12:13:03 us=947610 172.17.0.4:52232 2 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-18 12:13:03 us=947660 172.17.0.4:52232 [routerology-vpn-client] Peer Connection Initiated with [AF_INET]172.17.0.4:52232
+2025-04-18 12:13:03 us=947752 routerology-vpn-client/172.17.0.4:52232 MULTI_sva: pool returned IPv4=10.210.1.2, IPv6=(Not enabled)
+2025-04-18 12:13:03 us=947830 routerology-vpn-client/172.17.0.4:52232 MULTI: Learn: 10.210.1.2 -> routerology-vpn-client/172.17.0.4:52232
+2025-04-18 12:13:03 us=947874 routerology-vpn-client/172.17.0.4:52232 NOTE: --mute triggered...
+2025-04-18 12:13:03 us=947948 routerology-vpn-client/172.17.0.4:52232 1 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-18 12:13:03 us=948002 routerology-vpn-client/172.17.0.4:52232 Data Channel MTU parms [ mss_fix:1428 max_frag:0 tun_mtu:1500 tun_max_mtu:1600 headroom:136 payload:1768 tailroom:562 ET:0 ]
+2025-04-18 12:13:03 us=948087 routerology-vpn-client/172.17.0.4:52232 Outgoing dynamic tls-crypt: Cipher 'AES-256-CTR' initialized with 256 bit key
+2025-04-18 12:13:03 us=948132 routerology-vpn-client/172.17.0.4:52232 NOTE: --mute triggered...
+2025-04-18 12:13:03 us=948263 routerology-vpn-client/172.17.0.4:52232 5 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-18 12:13:03 us=948308 routerology-vpn-client/172.17.0.4:52232 SENT CONTROL [routerology-vpn-client]: 'PUSH_REPLY,redirect-gateway def1,topology subnet,dns search-domains routerology.ro packets.lab,dns server 1 address 9.9.9.9 1.1.1.1,dns server 1 resolve-domains routerology.ro,dhcp-option DOMAIN routerology.ro,dhcp-option DOMAIN-SEARCH routerology.ro,dhcp-option DNS 1.1.1.1,dhcp-option NTP 1.2.3.4,route-gateway 10.210.1.1,topology subnet,ping 10,ping-restart 60,ifconfig 10.210.1.2 255.255.255.0,peer-id 0,cipher AES-256-GCM,protocol-flags cc-exit tls-ekm dyn-tls-crypt,tun-mtu 1500' (status=1)
+2025-04-18 12:13:05 us=120832 routerology-vpn-client/172.17.0.4:52232 Data Channel: cipher 'AES-256-GCM', peer-id: 0
+2025-04-18 12:13:05 us=121380 routerology-vpn-client/172.17.0.4:52232 NOTE: --mute triggered...
+2025-04-18 12:13:13 us=573827 2 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-18 12:13:13 us=574286 read UDPv4 [ECONNREFUSED]: Connection refused (fd=5,code=111)
+2025-04-18 12:13:23 us=780701 NOTE: --mute triggered...
+2025-04-18 12:15:04 us=1053 routerology-vpn-client/172.17.0.4:52232 10 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-18 12:15:04 us=1731 routerology-vpn-client/172.17.0.4:52232 [routerology-vpn-client] Inactivity timeout (--ping-restart), restarting
+2025-04-18 12:15:04 us=2235 routerology-vpn-client/172.17.0.4:52232 SIGUSR1[soft,ping-restart] received, client-instance restarting
+2025-04-18 12:15:51 us=604503 Connection Attempt MULTI: multi_create_instance called
+2025-04-18 12:15:51 us=604629 172.17.0.4:57997 Re-using SSL/TLS context
+2025-04-18 12:15:51 us=604782 172.17.0.4:57997 Control Channel MTU parms [ mss_fix:0 max_frag:0 tun_mtu:1250 tun_max_mtu:0 headroom:126 payload:1600 tailroom:126 ET:0 ]
+2025-04-18 12:15:51 us=604835 172.17.0.4:57997 NOTE: --mute triggered...
+2025-04-18 12:15:51 us=620958 172.17.0.4:57997 1 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-18 12:15:51 us=621000 172.17.0.4:57997 VERIFY OK: depth=1, CN=Routerology-CA
+2025-04-18 12:15:51 us=621147 172.17.0.4:57997 NOTE: --mute triggered...
+2025-04-18 12:15:51 us=622426 172.17.0.4:57997 5 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-18 12:15:51 us=622471 172.17.0.4:57997 peer info: IV_VER=2.6.12
+2025-04-18 12:15:51 us=622530 172.17.0.4:57997 peer info: IV_PLAT=linux
+2025-04-18 12:15:51 us=622589 172.17.0.4:57997 peer info: IV_TCPNL=1
+2025-04-18 12:15:51 us=622636 172.17.0.4:57997 peer info: IV_MTU=1600
+2025-04-18 12:15:51 us=622694 172.17.0.4:57997 peer info: IV_NCP=2
+2025-04-18 12:15:51 us=622753 172.17.0.4:57997 peer info: IV_CIPHERS=AES-256-GCM:AES-128-GCM:CHACHA20-POLY1305:AES-256-CBC:AES-128-CBC
+2025-04-18 12:15:51 us=622827 172.17.0.4:57997 peer info: IV_PROTO=990
+2025-04-18 12:15:51 us=622902 172.17.0.4:57997 peer info: IV_LZO_STUB=1
+2025-04-18 12:15:51 us=622975 172.17.0.4:57997 peer info: IV_COMP_STUB=1
+2025-04-18 12:15:51 us=623030 172.17.0.4:57997 peer info: IV_COMP_STUBv2=1
+2025-04-18 12:15:51 us=623138 172.17.0.4:57997 TLS: move_session: dest=TM_ACTIVE src=TM_INITIAL reinit_src=1
+2025-04-18 12:15:51 us=623202 172.17.0.4:57997 NOTE: --mute triggered...
+2025-04-18 12:15:51 us=631600 172.17.0.4:57997 2 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-18 12:15:51 us=631641 172.17.0.4:57997 [routerology-vpn-client] Peer Connection Initiated with [AF_INET]172.17.0.4:57997
+2025-04-18 12:15:51 us=631709 routerology-vpn-client/172.17.0.4:57997 MULTI_sva: pool returned IPv4=10.210.1.2, IPv6=(Not enabled)
+2025-04-18 12:15:51 us=631789 routerology-vpn-client/172.17.0.4:57997 MULTI: Learn: 10.210.1.2 -> routerology-vpn-client/172.17.0.4:57997
+2025-04-18 12:15:51 us=631818 routerology-vpn-client/172.17.0.4:57997 NOTE: --mute triggered...
+2025-04-18 12:15:51 us=631898 routerology-vpn-client/172.17.0.4:57997 1 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-18 12:15:51 us=631941 routerology-vpn-client/172.17.0.4:57997 Data Channel MTU parms [ mss_fix:1428 max_frag:0 tun_mtu:1500 tun_max_mtu:1600 headroom:136 payload:1768 tailroom:562 ET:0 ]
+2025-04-18 12:15:51 us=632014 routerology-vpn-client/172.17.0.4:57997 Outgoing dynamic tls-crypt: Cipher 'AES-256-CTR' initialized with 256 bit key
+2025-04-18 12:15:51 us=632050 routerology-vpn-client/172.17.0.4:57997 NOTE: --mute triggered...
+2025-04-18 12:15:51 us=632154 routerology-vpn-client/172.17.0.4:57997 5 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-18 12:15:51 us=632194 routerology-vpn-client/172.17.0.4:57997 SENT CONTROL [routerology-vpn-client]: 'PUSH_REPLY,redirect-gateway def1,topology subnet,dns search-domains routerology.ro packets.lab,dns server 1 address 9.9.9.9 1.1.1.1,dns server 1 resolve-domains routerology.ro,dhcp-option DOMAIN routerology.ro,dhcp-option DOMAIN-SEARCH routerology.ro,dhcp-option DNS 1.1.1.1,dhcp-option NTP 1.2.3.4,route-gateway 10.210.1.1,topology subnet,ping 10,ping-restart 60,ifconfig 10.210.1.2 255.255.255.0,peer-id 0,cipher AES-256-GCM,protocol-flags cc-exit tls-ekm dyn-tls-crypt,tun-mtu 1500' (status=1)
+2025-04-18 12:15:52 us=649482 routerology-vpn-client/172.17.0.4:57997 Data Channel: cipher 'AES-256-GCM', peer-id: 0
+2025-04-18 12:15:52 us=650048 routerology-vpn-client/172.17.0.4:57997 NOTE: --mute triggered...
+2025-04-18 12:16:01 us=692102 2 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-18 12:16:01 us=692920 read UDPv4 [ECONNREFUSED]: Connection refused (fd=5,code=111)
+2025-04-18 12:16:11 us=798810 NOTE: --mute triggered...
+2025-04-18 12:17:51 us=201891 routerology-vpn-client/172.17.0.4:57997 10 variation(s) on previous 3 message(s) suppressed by --mute
+2025-04-18 12:17:51 us=202434 routerology-vpn-client/172.17.0.4:57997 [routerology-vpn-client] Inactivity timeout (--ping-restart), restarting
+2025-04-18 12:17:51 us=202730 routerology-vpn-client/172.17.0.4:57997 SIGUSR1[soft,ping-restart] received, client-instance restarting

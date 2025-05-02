@@ -77,6 +77,26 @@ The official documentation says that is either the argument of **route-gateway**
 It is automatically configured by virtute of the helper directivtive **server** which configs ifconfig-pool, ifconfig and mode server.
 There is also the case where route and redirect-gateway are pushed to the client, and the next-hop that the gateway understand as implied it depends on the topology. If the topology is p2p or net30 then it will use the peer ip address, but if the topology is subnet, then route-gateway should be configured on the client or pushed by the server; or you push the route with included next-hop from the begining.
 
+## Helper directive Server
+
+Is said in the official documentation that the directive **Server** is automatically configuring things like:
+
+- ifconfig
+- ifconfig-pool
+- push "topology xxxx"
+- push "route yyyy"
+
+The things are a bit more complicated than this, if we think about how we can achieve the same results without this server directive.
+The answer is that in some cases we can't.
+The obvious example is for the tun p2p topology where the server would have multiple ip addresses for each connected client.
+
+- 192.168.1.1 192.168.1.2
+- 192.168.1.5 192.168.1.6
+- 192.168.1.9 192.168.1.10
+
+and so on.
+
+
 ### DNS Configuration
 
 There are two methods to push these kind of client settings (dns servers, domainname, dnssearch, etc)
@@ -117,12 +137,19 @@ Thus, **--dns** can be used today to migrate from **--dhcp-option**.
 
 ### Protocol Options
 
+In previous versions there was no dynamic negotiation of ciphers. You would statically set one cipher with **--cipher** option.
+Later versions introduced the NCP (Negotiable Crypto Parameters) mechanism which allows for options like **--ncp-ciphers** which was later renamed
+to **--data-ciphers**
+You can find out the parameters supported with **openvpn --show-ciphers** 
+
 - **allow-compression** *asym | no | yes*; compression is not encouraged, that's why no is the default option
 - **compress {algorithm}** - algorithm can be "lzo", or "lz4"; compression is not recommended
-- **data-ciphers** *cipher-list*; use this one if you want to specify encryption ciphers in tls mode; is the modern option that replaces cipher
+- **data-ciphers** *{cipher-list}*; use this one if you want to specify encryption ciphers in tls mode; is the modern option that replaces cipher
 - **auth {alg}** - alg is one of: MD5, SHA1, RSA-SHA1, DSA-SHA1, RSA-SHA256, SHA256, SHA384, SHA512
 - **cipher {alg}** - the default is BF-CBC, but is legacy. AES-128-CBC, AES-128-CFB, AES-256-GCM, openvpn --show-ciphers 
-- **ncp-cipher-list {cipher_list}** - restrict the automatically negotiated ciphers to the specified list; "AES-128-CBC:AES-256-GCM"
+- **ncp-ciphers** *{cipher_list}* - restrict the automatically negotiated ciphers to the specified list; "AES-128-CBC:AES-256-GCM"
+
+The **auth** parameter is only used if TLS authentication is configured.
 
 
 ### TLS Configuration
@@ -224,7 +251,7 @@ Option flags: *local, autolocal, def1, bypass-dns, bypass-dhcp, block-local*
 - **duplicate-cn** - Allow multiple clients with the same common name to concurrently connect.
 - **push {option}** - push specific configurations to the client. Client has to use *--pull* or *--client*, to be able to accept those
 >push options: route, route-gateway, redirect-gateway, ping, ping-exit, ping-restart, auth-token, persist-key, persist-tun, comp-lzo
->dns, dhcp-option, topology 
+>dns, dhcp-option, topology. The manual does not directly mention **topology* as a pushed parameter but is one of them params definitely. 
 - **ifconfig-push {local remote-netmask [alias]}** - Push virtual IP endpoints for client tunnel, overriding the *--ifconfig-pool* dynamic allocation.
 >The parameters local and remote-netmask are set according to the *--ifconfig* directive which you want to execute on the client machine to configure the remote end of the tunnel. 
 >Note that the parameters local and remote-netmask are from the perspective of the client, not the server.  

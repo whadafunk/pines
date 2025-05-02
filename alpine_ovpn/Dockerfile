@@ -1,6 +1,6 @@
 # OpenVPN Alpine-Based Container
 FROM alpine:latest
-MAINTAINER gri.daniel@gmail.com
+LABEL maintainer="gri.daniel@gmail.com"
 LABEL my_name="Daniel Grigore"
 LABEL my_email="gri.daniel@gmail.com"
 
@@ -68,6 +68,11 @@ RUN chown -R ovpn:ovpn /etc/openvpn
 #USER admin
 
 WORKDIR /etc/openvpn
+
+EXPOSE 1194/udp
+EXPOSE 1194/tcp
+EXPOSE 10194/udp
+
 
 # This is the default from the base image, but I have it here just for clarity
 ENTRYPOINT ["/bin/bash","/root/entrypoint.sh"]

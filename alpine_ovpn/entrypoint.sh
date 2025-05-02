@@ -13,8 +13,6 @@
 ### The way we will do this, is by using an environment variable
 ### server-tun
 ### server-tap
-### server-tun-expanded
-### server-tap-expanded
 ### client-tun
 ### client-tap
 ### peer
@@ -34,4 +32,9 @@ fi
 mkdir -p /dev/net
 mknod /dev/net/tun c 10 200
 chmod 600 /dev/net/tun
-exec /usr/sbin/openvpn --config /etc/openvpn/config/openvpn-${ovp_mode}.conf $@
+
+if [ -n $client_pass ]; then
+	exec /usr/sbin/openvpn --config /etc/openvpn/config/openvpn-${ovp_mode}.conf $@ 
+else
+	exec echo $client_pass | /usr/sbin/openvpn --config /etc/openvpn/config/openvpn-${ovp_mode}.conf $@
+fi

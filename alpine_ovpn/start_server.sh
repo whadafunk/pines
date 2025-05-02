@@ -9,5 +9,6 @@ docker container run -it \
 	--user root \
 	--cap-add=NET_ADMIN \
 	--env ovp_mode="server-tun" \
+	--publish 1194:1194/udp \
 	--mount type=bind,source=$(pwd)/logs_server,target=/var/log/ \
-	routerology/ovpn "--status /var/logs_server/ovpn.status"
+	routerology/ovpn "--status /var/log/ovpn.status"
