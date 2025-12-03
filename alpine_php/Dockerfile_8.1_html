@@ -1,5 +1,4 @@
 FROM alpine:3.17
-MAINTAINER gri.daniel@gmail.com
 LABEL my_name="daniel grigore"
 LABEL my_youtube="https://www.youtube.com/@routerologyblog1111"
 
@@ -101,7 +100,7 @@ ENV TZ="Europe/Bucharest"
 # We can copy the site content straight into the container but that's not a good practice.
 # Look in the start script from the repo to see how to mount it as a volume at container start
 
-COPY ./www/ /var/www/localhost/htdocs
+COPY www/ /var/www/localhost/htdocs
 
 # The configuration files for PHP and HTTPD can be copied into the container
 # but they can be very well overriden by mounting them at container start

@@ -1,10 +1,14 @@
 #!/bin/bash
 
-docker buildx build --push -t routerology/phpine:8.3 --platform linux/amd64,linux/arm64 -f Dockerfile_8.3 .
-docker buildx build --push -t routerology/phpine:latest --platform linux/amd64,linux/arm64 -f Dockerfile_8.3 .
 docker buildx build --push -t routerology/phpine:8.1 --platform linux/amd64,linux/arm64 -f Dockerfile_8.1 .
+docker buildx build --push -t routerology/phpine:8.1_html --platform linux/amd64,linux/arm64 -f Dockerfile_8.1_html .
 docker buildx build --push -t routerology/phpine:8.2 --platform linux/amd64,linux/arm64 -f Dockerfile_8.2 .
+docker buildx build --push -t routerology/phpine:8.2_html --platform linux/amd64,linux/arm64 -f Dockerfile_8.2_html .
+docker buildx build --push -t routerology/phpine:8.3 --platform linux/amd64,linux/arm64 -f Dockerfile_8.3 .
+docker buildx build --push -t routerology/phpine:8.3_html --platform linux/amd64,linux/arm64 -f Dockerfile_8.3_html .
+docker buildx build --push -t routerology/phpine:latest --platform linux/amd64,linux/arm64 -f Dockerfile_8.3 .
 docker buildx build --push -t routerology/phpine:7.4 --platform linux/amd64,linux/arm64 -f Dockerfile_7 .
-docker buildx build --push -t routerology/phpine:www --platform linux/amd64,linux/arm64 -f Dockerfile_www .
+docker buildx build --push -t routerology/phpine:7.4_html --platform linux/amd64,linux/arm64 -f Dockerfile_7_html .
+#docker buildx build --push -t routerology/phpine:www --platform linux/amd64,linux/arm64 -f Dockerfile_www .
 #docker image tag routerology/phpine:8.3 routerology/phpine:latest
 #docker image push --all-tags routerology/phpine

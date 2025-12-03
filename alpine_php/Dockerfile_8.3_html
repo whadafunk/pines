@@ -1,0 +1,153 @@
+FROM alpine:3.21
+LABEL my_name="daniel grigore"
+LABEL my_youtube="https://www.youtube.com/@routerologyblog1111"
+ENV PHPVERSION="php83"
+
+# Apache and PHP on Alpine Linux
+
+
+RUN apk update && \
+	apk add \
+	tzdata \
+	apache2 \
+	apache2-utils \
+	${PHPVERSION}-apache2 \
+	${PHPVERSION}-bcmath \
+	${PHPVERSION}-bz2 \
+	${PHPVERSION}-calendar \
+	${PHPVERSION}-cgi \
+	${PHPVERSION}-common\
+	${PHPVERSION}-ctype\
+	${PHPVERSION}-curl\
+	${PHPVERSION}-dba\
+	${PHPVERSION}-dom\
+	${PHPVERSION}-embed\
+	${PHPVERSION}-enchant\
+	${PHPVERSION}-exif\
+	${PHPVERSION}-ffi\
+	${PHPVERSION}-fileinfo\
+	${PHPVERSION}-fpm\
+	${PHPVERSION}-ftp\
+	${PHPVERSION}-gd\
+	${PHPVERSION}-gettext\
+	${PHPVERSION}-gmp\
+	${PHPVERSION}-iconv\
+	${PHPVERSION}-imap\
+	${PHPVERSION}-intl\
+	${PHPVERSION}-ldap\
+	${PHPVERSION}-litespeed\
+	${PHPVERSION}-mbstring\
+	${PHPVERSION}-mysqli\
+	${PHPVERSION}-mysqlnd\
+	${PHPVERSION}-odbc\
+	${PHPVERSION}-opcache\
+	${PHPVERSION}-openssl\
+	${PHPVERSION}-pcntl\
+	${PHPVERSION}-pdo\
+	${PHPVERSION}-pdo_dblib\
+	${PHPVERSION}-pdo_mysql\
+	${PHPVERSION}-pdo_odbc\
+	${PHPVERSION}-pdo_sqlite\
+	${PHPVERSION}-pear\
+	${PHPVERSION}-pecl-decimal \
+	${PHPVERSION}-pecl-ds \
+	${PHPVERSION}-pecl-event \
+	${PHPVERSION}-pecl-grpc \
+	${PHPVERSION}-pecl-igbinary \
+	${PHPVERSION}-pecl-imagick \
+	${PHPVERSION}-pecl-lzf \
+	${PHPVERSION}-pecl-mcrypt \
+	${PHPVERSION}-pecl-memcache \
+	${PHPVERSION}-pecl-memcached \
+	${PHPVERSION}-pecl-msgpack \
+	${PHPVERSION}-pecl-pcov \
+	${PHPVERSION}-pecl-redis \
+	${PHPVERSION}-pecl-smbclient \
+	${PHPVERSION}-pecl-ssh2 \
+	${PHPVERSION}-pecl-timezonedb \
+	${PHPVERSION}-pecl-uploadprogress \
+	${PHPVERSION}-pecl-uuid \
+	${PHPVERSION}-pecl-vips \
+	${PHPVERSION}-pecl-xdebug \
+	${PHPVERSION}-pecl-xlswriter \
+	${PHPVERSION}-pecl-yaml \
+	${PHPVERSION}-pecl-zstd \
+	${PHPVERSION}-phar\
+	${PHPVERSION}-phpdbg\
+	${PHPVERSION}-posix\
+	${PHPVERSION}-pspell\
+	${PHPVERSION}-session\
+	${PHPVERSION}-shmop\
+	${PHPVERSION}-simplexml\
+	${PHPVERSION}-snmp\
+	${PHPVERSION}-soap\
+	${PHPVERSION}-sockets\
+	${PHPVERSION}-sodium\
+	${PHPVERSION}-spx \
+	${PHPVERSION}-sqlite3\
+	${PHPVERSION}-sysvmsg\
+	${PHPVERSION}-sysvsem\
+	${PHPVERSION}-sysvshm\
+	${PHPVERSION}-tidy\
+	${PHPVERSION}-tokenizer\
+	${PHPVERSION}-xml\
+	${PHPVERSION}-xmlreader\
+	${PHPVERSION}-xmlwriter\
+	${PHPVERSION}-xsl\
+	${PHPVERSION}-zip\
+	&& rm -rf /var/lib/apt/lists/*
+
+
+# Add the following extra tools if you need to do some troubleshooting on the container
+# The same goes for the apache2-ssl also
+
+RUN apk update && \
+	apk add \
+	net-tools \
+	tcpdump \
+	ca-certificates \
+	iproute2 \
+	wget \
+	shadow \
+ 	&& rm -rf /var/lib/apt/lists/* 
+
+# The alpine container starts httpd as root, and after that it starts the child processes as "apache" user
+# which has uid 100
+# Lets modify that uid gid to 1000:1000
+
+RUN 	usermod -u 1000 apache && \
+	groupmod -g 1000 apache
+
+
+# If we are using SSL, then we might need to add our ca to the trusted ssl chain
+#COPY ssl/*.crt /usr/local/share/ca-certificates
+#RUN update-ca-certificates
+
+# We normally do not load the ssl module, so we delete the config file
+
+RUN rm -f /etc/apache2/conf.d/ssl.conf
+
+# Set the correct timezone
+
+
+ENV TZ="Europe/Bucharest"
+
+
+# We can copy the site content straight into the container but that's not a good practice.
+# Look in the start script from the repo to see how to mount it as a volume at container start
+
+COPY www/ /var/www/localhost/htdocs
+
+# The configuration files for PHP and HTTPD can be copied into the container
+# but they can be very well overriden by mounting them at container start
+
+COPY php_ini/php.ini /etc/php83/php.ini
+COPY httpd_conf/httpd.conf /etc/apache2/httpd.conf
+
+# The PID on this container is root/1, but the httpd workers/subprocesses are started with 100:101
+# So if any files are to be created by the app inside, they will have that ownership
+
+EXPOSE 80/tcp
+
+ENTRYPOINT ["httpd","-DFOREGROUND"]
+

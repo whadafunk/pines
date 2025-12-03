@@ -1,5 +1,4 @@
-FROM alpine:3.17
-MAINTAINER gri.daniel@gmail.com
+FROM alpine:3.15
 LABEL my_name="daniel grigore"
 LABEL my_youtube="https://www.youtube.com/@routerologyblog1111"
 
@@ -10,58 +9,61 @@ RUN apk update && \
 	tzdata \
 	apache2 \
 	apache2-utils \
-	php81-apache2 \
-	php81-enchant \
-	php81-soap \
-	php81-openssl \
-	php81-pecl-redis \
-	php81-posix \
-	php81-dba \
-	php81-bz2 \
-	php81-pecl-mongodb \
-	php81-mysqli \
-	php81-common \
-	php81-pdo_mysql \
-	php81-cgi \
-	php81-fileinfo \
-	php81-shmop \
-	php81-xsl \
-	php81-curl \
-	php81-session \
-	php81-pecl-imagick \
-	php81-sodium \
-	php81-pecl-memcache \
-	php81-pspell \
-	php81-sockets \
-	php81-mbstring \
-	php81-intl \
-	php81-xml \
-	php81-zip \
-	php81-pgsql \
-	php81-simplexml \
-	php81-imap \
-	php81-pecl-ssh2 \
-	php81-tidy \
-	php81-pdo_sqlite \
-	php81-calendar \
-	php81-sqlite3 \
-	php81-pecl-memcached \
-	php81-xmlreader \
-	php81-gettext \
-	php81-snmp \
-	php81-bcmath \
-	php81-gd \
-	php81-ldap \
-	php81-pecl-uuid \
-	php81-pecl-yaml \
-	php81-xmlwriter \
-	php81-dom \
-	php81-exif \
-	php81-phar \
-	php81-opcache \
-	php81-iconv \
-	php81-ctype \
-	php81-gmp \
+	php7-apache2 \
+	php7-intl \
+	php7-openssl \
+	php7-dba \
+	php7-sqlite3 \
+	php7-pdo_mysql \
+	php7-sodium \
+	php7-common \
+	php7-xsl \
+	php7-pecl-mailparse \
+	php7-pecl-imagick \
+	php7-enchant \
+	php7-pecl-uuid \
+	php7-pspell \
+	php7-pecl-redis \
+	php7-snmp \
+	php7-fileinfo \
+	php7-mbstring \
+	php7-pecl-yaml \
+	php7-pecl-memcache \
+	php7-xmlrpc \
+	php7-xmlreader \
+	php7-pdo_sqlite \
+	php7-exif \
+	php7-opcache \
+	php7-ldap \
+	php7-posix \
+	php7-session \
+	php7-gd \
+	php7-pecl-mongodb \
+	php7-gettext \
+	php7-json \
+	php7-xml \
+	php7-iconv \
+	php7-curl \
+	php7-shmop \
+	php7-phar \
+	php7-pdo_pgsql \
+	php7-imap \
+	php7-pgsql \
+	php7-zip \
+	php7-pecl-mcrypt \
+	php7-bcmath \
+	php7-calendar \
+	php7-tidy \
+	php7-dom \
+	php7-sockets \
+	php7-pecl-memcached \
+	php7-soap \
+	php7-pecl-ssh2 \
+	php7-pdo \
+	php7-bz2 \
+	php7-mysqli \
+	php7-simplexml \
+	php7-xmlwriter \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Add the following extra tools if you need to do some troubleshooting on the container
@@ -78,20 +80,19 @@ RUN apk update && \
  	&& rm -rf /var/lib/apt/lists/* 
 
 # The alpine container starts httpd as root, and after that it starts the child processes as "apache" user
-# which has uid 100
-# Lets modify that uid gid to 1000:1000
+# which has uid 100 by default
+# Lets modify that uid gid to 1000:1000, so we have a better chance of matching an existing UID on the running host.
 
 RUN 	usermod -u 1000 apache && \
 	groupmod -g 1000 apache
 
 
 
-# If we are using SSL, the we might need to add our ca to the trusted ssl chain
+# If we are using SSL, then we might need to add our CA to the trusted ssl chain
 #COPY ssl/*.crt /usr/local/share/ca-certificates
 #RUN update-ca-certificates
 
-# We normally do not load the ssl module, so we delete the config file
-
+# We normally do not need to load the ssl module, so we delete the config file
 RUN rm -f /etc/apache2/conf.d/ssl.conf
 
 # Set the correct timezone
@@ -101,12 +102,12 @@ ENV TZ="Europe/Bucharest"
 # We can copy the site content straight into the container but that's not a good practice.
 # Look in the start script from the repo to see how to mount it as a volume at container start
 
-COPY ./www/ /var/www/localhost/htdocs
+COPY www/ /var/www/localhost/htdocs
 
 # The configuration files for PHP and HTTPD can be copied into the container
 # but they can be very well overriden by mounting them at container start
 
-COPY php_ini/php.ini /etc/php81/php.ini
+COPY php_ini/php.ini /etc/php74/php.ini
 COPY httpd_conf/httpd.conf /etc/apache2/httpd.conf
 
 # The PID on this container is root/1, but the httpd workers/subprocesses are started with 100:101
